@@ -63,3 +63,29 @@
 - al posto del tag <a> utilizzo il tag html <router-link></router-link> all'interno dei template per creare link alle rotte gestite da vue router:
 
     <router-link :to="{ name: routeName }">Label</router-link>
+
+- aggiunta di pagina di errore 404 a cui rimandare in caso di rotta/URI assente (CATCH ALL):
+
+    - in resources > js > pages creo il componente Page404;
+
+    - in resources > js > router.js:
+
+        - importo il componente Page404:
+        
+            import Page404 from "./pages/Page404";
+    
+        - definisco la rotta che condurrà al componente che renderizzerà la pagina di errore:
+
+            const router = new VueRouter({
+
+                routes: [
+                    // aggiungo la rotta per visualizzare la pagina di errore 404 SEMPRE ALLA FINE (dopo aver cercato tra tutte le altre rotte)
+                    {
+                        // * = qualsiasi rotta/URI
+                        path: "/*",
+                        name: "page-404",
+                        component: Page404,
+                    },
+                ],
+            });
+    -  
