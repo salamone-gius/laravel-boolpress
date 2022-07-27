@@ -1,0 +1,74 @@
+// ---------- IMPOSTAZIONE FRONTEND VUE ---------- \\
+
+1. suddivido gli ambienti anche a livello di file e cartelle:
+
+    - in resources > js creo il file front.js in cui:
+
+        -   // includo la libreria Vue.js
+            window.Vue = require('vue');
+
+        -   // importo il componente principale dell'applicazione 'App.vue'
+            import App from './views/App.vue';
+
+        -   // renderizzo App all'avvio
+            const app = new Vue({
+                el: '#app',
+                render: h => h(App),
+            });
+
+    - in resources > sass creo il file front.scss che conterrà lo stile relativo ai componenti Vue che visualizzeranno tutti gli elementi della parte frontend;
+
+    - in webpack.mix.js aggiungo le direttive per la compilazione dei nuovi file javascript e scss appena creati:
+
+        // creo le direttive per compilare scss e js
+        mix.js('resources/js/app.js', 'public/js')
+            .js('resources/js/front.js', 'public/js')
+            .sass('resources/sass/app.scss', 'public/css')
+            .sass('resources/sass/front.scss', 'public/css');
+
+    - in resources > views > guest > home.blade.php (pagina blade di defalut) linko css e js frontend e creo il div che conterrà l'app di Vue che gestirà la visualizzazione pubblica riservata agli utenti 'ospiti' (non registrati/loggati)
+
+    - in resources > js > views > App.vue inserirò tutti i componenti relativi alla parte pubblica.
+
+2. creo un controller con namespace Api dove inserirò i metodi per la gestione dei dati:
+    php artisan make:controller Api/NomeTabellaSingolareController
+
+3. in routes > api.php inserisco tutte le rotte che servono ad utilizzare i metodi dei controller per prendere dati dal db ed inviarli al componente attraverso una chiamata axios nel componente stesso. Queste rotte non restituiscono una view (come le pagine blade in web.php), ma devono restituire un json per poter essere 'letti'
+
+4. aggancio il frontoffice alle Api:
+
+    - in resources > js > front.js includo la libreria axios nel progetto (già installato nella node modules nel file bootstrap.js e reso globale in quanto legato all'oggetto 'window', ha già incluso il token @csrf per ogni richiesta):
+        window.axios = require('axios');
+        window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+    - in resources > js > views > App.vue:
+    
+        - inizializzo ad array vuoto l'insieme dei dati che prenderò tramite chiamata axios;
+
+        - all'hook created() imposto la chiamata all'endpoint tramite axios e pusho il risultato nell'array vuoto;
+
+        - stampo in pagina i dati arrivati dal server attraverso Vue;
+
+5. organizzo e preparo lo scaffolding dei componenti Vue che renderizzeranno le pagine a frontoffice:
+
+    - in resources > js > components creo una cartella 'macro'; 
+
+    - in resources > js > components > macro creo i componenti principali (BaseHeader, BaseMain, BaseFooter);
+
+    - inserisco i componenti in App.vue (importo, registro, utilizzo);
+
+    - in resources > js > components creo una cartella 'sections';
+
+    - in resources > js > components > sections creo i componenti che saranno le sezioni del main;
+
+    - inserisco i componenti nel BaseMain (importo, registro, utilizzo);
+
+    - in resources > js > components creo una cartella 'commons'; 
+
+    - in resources > js > components > commons creo i componenti più piccoli che saranno riutilizzati in altri componenti (BaseCard, ecc...);
+
+    - inserisco i componenti nei relativi componenti (importo, registro, utilizzo);
+
+    - in resources > sass creo una cartella 'guest' dove inserirò il file front.scss;
+
+    - in resources > sass > guest creo una cartella 'partials' che conterrà i file organizzati settorialmente (_variables, _typography, ecc...);
