@@ -5,7 +5,10 @@
                 <div class="col logo">
                     <h1>Boolpress</h1>
                 </div>
-                <div class="col"></div>
+                <div class="col">
+                    <!-- inserisco un link che conduce all'area di registrazione/autenticazione -->
+                    <a href="/admin/home">Restricted Area (Admin)</a>
+                </div>
             </div>
         </div>
     </header>

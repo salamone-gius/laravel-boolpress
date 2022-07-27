@@ -1,0 +1,63 @@
+// ---------- VUE ROUTING ---------- \\
+
+- installo il pacchetto vue router che gestirà tutte le rotte del frontend organizzato con Vue 2:
+    npm i vue-router@3.5.3
+
+- in routes > web.php elimino la rotta verso la pagina welcome.blade.php;
+
+- in resources > views elimino la pagina welcome.blade.php;
+
+- al posto del tag <a> utilizzo il tag html <router-view></router-view> all'interno dei template per creare link alle rotte gestite da vue router;
+
+- in resources > js creo il file 'router.js';
+
+- in resources > js > router.js creo l'oggetto router che gestirà le rotte frontoffice:
+
+    // importo Vue.js dalla node modules
+    import Vue from "vue";
+
+    // importo Vue router dalla node modules
+    import VueRouter from "vue-router";
+
+    // uso il metodo Vue.Use() che mi permette di aggiungere il plug-in VueRouter all'istanza di Vue.js
+    Vue.use(VueRouter);
+
+    // importo il componente che restituirà la pagina Home (si deve creare)
+    import Home from "./pages/Home";
+
+    // salvo nella const router il nuovo oggetto VueRouter partendo dalla classe VueRouter
+    const router = new VueRouter({
+
+        // aggiungo la possibilità di navigare 'all'indietro'
+        mode: "history",
+
+        // aggiungo le rotte della parte frontoffice come array di oggetti. Ogni oggetto rappresenta una rotta frontoffice
+        routes: [
+            {
+                path: "/",
+                name: "home",
+                component: Home,
+            },
+        ],
+    });
+
+    // esportiamo il nuovo router
+    export default router;
+
+- in resources > js > front.js importo l'oggetto router appena creato per poterlo utilizzare:
+
+    // importo il nuovo oggetto router
+    import router from './router';
+
+    // renderizzo App all'avvio
+    const app = new Vue({
+        el: '#app',
+        render: h => h(App),
+
+        // importo il router come terzo argomento del costruttore di Vue.js
+        router,
+    });
+
+- in resources > js > creo una cartella 'pages';
+
+- in resources > js > > pages creo i componenti che renderizzeranno tutte le pagine del frontoffice;

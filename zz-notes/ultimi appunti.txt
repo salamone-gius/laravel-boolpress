@@ -1,6 +1,0 @@
-// ---------- ULTIMI APPUNTI ---------- \\
-- uso le props per passare informazioni in maniera dinamica da un componente all'altro
-
-- installo il pacchetto vue router che gestirà tutte le rotte del frontend organizzato con Vue 2:
-    npm i vue-router@3.5.3
-

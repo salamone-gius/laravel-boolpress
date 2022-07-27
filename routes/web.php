@@ -13,13 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// BACKOFFICE - AREA PUBBLICA (blade) \\
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
 // BACKOFFICE - AREA PUBBLICA (AREA DI AUTENTICAZIONE: REGISTRAZIONE, LOGIN, RECUPERO PASSWORD) (blade) \\
 
 Auth::routes();
