@@ -15,6 +15,10 @@
                             <!-- inserisco il router-link per la pagina About -->
                             <router-link :to="{ name: 'about' }">About</router-link>
                         </li>
+                        <li>
+                            <!-- inserisco il router-link per la pagina 404 -->
+                            <router-link :to="{ name: 'page-404' }">Page404</router-link>
+                        </li>
                     </ul>
                 </nav>
                 <div class="col restricted-area d-flex justify-content-end">

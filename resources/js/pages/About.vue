@@ -1,7 +1,7 @@
 <template>
     <div class="about-us">
         <div class="container d-flex flex-column justify-content-center align-items-center">
-            <h2>About us</h2>
+            <h1>About us</h1>
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod numquam facere molestiae omnis corrupti dolorum qui enim quibusdam natus nostrum ullam eius, deleniti ratione libero atque, voluptatibus rem laboriosam similique.</p>
         </div>
     </div>
@@ -21,7 +21,7 @@ export default {
     .container {
     width: 50%;
 
-        h2 {
+        h1 {
             margin-bottom: 2rem;
         }
 

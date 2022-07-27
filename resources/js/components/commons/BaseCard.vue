@@ -2,7 +2,7 @@
     <div class="base-card">
 
         <!-- utilizzo le props definite -->
-        <h3>{{title}}</h3>
+        <h2>{{title}}</h2>
         <p class="card-content">
             {{content}}
         </p>

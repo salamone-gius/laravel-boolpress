@@ -1,7 +1,7 @@
 <template>
     <footer>
         <div class="footer container">
-            Made with love
+            Made with ♥
         </div>
     </footer>
 </template>

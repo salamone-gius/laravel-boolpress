@@ -1,7 +1,7 @@
 <template>
     <section class="post-section">
         <div class="container d-flex flex-column justify-content-center align-items-center">
-            <h2>All posts</h2>
+            <h1>All posts</h1>
             <div>
                 <ul class="row">
                     <!-- ciclo e stampo con Vue -->
@@ -63,8 +63,9 @@ export default {
     background-color: var(--bg-section-light);
     padding: var(--section-padding);
 
-    h2 {
+    h1 {
         margin-bottom: 2rem;
+        font-size: 2rem;
     }
 
     li {

@@ -1,23 +1,14 @@
 @import url(https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;
 
-400;700&display=swap);@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap);:root {
-  --bg-section-light: lightgray;
+400;700&display=swap);@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap);@import url(https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;700&display=swap);:root {
+  --bg-section-light: rgba(0, 0, 0, 0.03);
   --header-padding: 1rem;
   --section-padding: 2rem;
   --footer-padding: 1.5rem;
 }
 
 body {
-  font-family: "Roboto", sans-serif;
-}
-
-body h1,
-body h2,
-body h3,
-body h4,
-body h5,
-body h6 {
-  font-family: "Roboto Slab", serif;
+  font-family: "Nunito", sans-serif;
 }
 
 * {

@@ -2113,7 +2113,7 @@ var render = function render() {
 
   return _c("div", {
     staticClass: "base-card"
-  }, [_c("h3", [_vm._v(_vm._s(_vm.title))]), _vm._v(" "), _c("p", {
+  }, [_c("h2", [_vm._v(_vm._s(_vm.title))]), _vm._v(" "), _c("p", {
     staticClass: "card-content"
   }, [_vm._v("\n        " + _vm._s(_vm.content) + "\n    ")]), _vm._v(" "), _c("a", {
     attrs: {
@@ -2152,7 +2152,7 @@ var staticRenderFns = [function () {
 
   return _c("footer", [_c("div", {
     staticClass: "footer container"
-  }, [_vm._v("\n        Made with love\n    ")])]);
+  }, [_vm._v("\n        Made with ♥\n    ")])]);
 }];
 render._withStripped = true;
 
@@ -2195,7 +2195,13 @@ var render = function render() {
         name: "about"
       }
     }
-  }, [_vm._v("About")])], 1)])]), _vm._v(" "), _vm._m(1)])])]);
+  }, [_vm._v("About")])], 1), _vm._v(" "), _c("li", [_c("router-link", {
+    attrs: {
+      to: {
+        name: "page-404"
+      }
+    }
+  }, [_vm._v("Page404")])], 1)])]), _vm._v(" "), _vm._m(1)])])]);
 };
 
 var staticRenderFns = [function () {
@@ -2265,7 +2271,7 @@ var render = function render() {
     staticClass: "post-section"
   }, [_c("div", {
     staticClass: "container d-flex flex-column justify-content-center align-items-center"
-  }, [_c("h2", [_vm._v("All posts")]), _vm._v(" "), _c("div", [_c("ul", {
+  }, [_c("h1", [_vm._v("All posts")]), _vm._v(" "), _c("div", [_c("ul", {
     staticClass: "row"
   }, _vm._l(_vm.posts, function (post) {
     return _c("li", {
@@ -2312,7 +2318,7 @@ var staticRenderFns = [function () {
     staticClass: "about-us"
   }, [_c("div", {
     staticClass: "container d-flex flex-column justify-content-center align-items-center"
-  }, [_c("h2", [_vm._v("About us")]), _vm._v(" "), _c("p", [_vm._v("Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod numquam facere molestiae omnis corrupti dolorum qui enim quibusdam natus nostrum ullam eius, deleniti ratione libero atque, voluptatibus rem laboriosam similique.")])])]);
+  }, [_c("h1", [_vm._v("About us")]), _vm._v(" "), _c("p", [_vm._v("Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod numquam facere molestiae omnis corrupti dolorum qui enim quibusdam natus nostrum ullam eius, deleniti ratione libero atque, voluptatibus rem laboriosam similique.")])])]);
 }];
 render._withStripped = true;
 
@@ -2471,7 +2477,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".post-section[data-v-b254f190] {\n  background-color: var(--bg-section-light);\n  padding: var(--section-padding);\n}\n.post-section h2[data-v-b254f190] {\n  margin-bottom: 2rem;\n}\n.post-section li[data-v-b254f190] {\n  list-style: none;\n  margin-bottom: 1.8rem;\n}", ""]);
+exports.push([module.i, ".post-section[data-v-b254f190] {\n  background-color: var(--bg-section-light);\n  padding: var(--section-padding);\n}\n.post-section h1[data-v-b254f190] {\n  margin-bottom: 2rem;\n  font-size: 2rem;\n}\n.post-section li[data-v-b254f190] {\n  list-style: none;\n  margin-bottom: 1.8rem;\n}", ""]);
 
 // exports
 
@@ -2490,7 +2496,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".about-us[data-v-520b5d54] {\n  background-color: var(--bg-section-light);\n  padding: var(--section-padding);\n}\n.about-us .container[data-v-520b5d54] {\n  width: 50%;\n}\n.about-us .container h2[data-v-520b5d54] {\n  margin-bottom: 2rem;\n}\n.about-us .container p[data-v-520b5d54] {\n  text-align: justify;\n  padding-bottom: 20rem;\n}", ""]);
+exports.push([module.i, ".about-us[data-v-520b5d54] {\n  background-color: var(--bg-section-light);\n  padding: var(--section-padding);\n}\n.about-us .container[data-v-520b5d54] {\n  width: 50%;\n}\n.about-us .container h1[data-v-520b5d54] {\n  margin-bottom: 2rem;\n}\n.about-us .container p[data-v-520b5d54] {\n  text-align: justify;\n  padding-bottom: 20rem;\n}", ""]);
 
 // exports
 
