@@ -10,6 +10,9 @@ Vue.use(VueRouter);
 // importo il componente che restituirà la pagina Home (si deve creare)
 import Home from "./pages/Home";
 
+// importo il componente che restituirà la pagina About
+import About from "./pages/About";
+
 // salvo nella const router il nuovo oggetto VueRouter partendo dalla classe VueRouter
 const router = new VueRouter({
 
@@ -22,6 +25,12 @@ const router = new VueRouter({
             path: "/",
             name: "home",
             component: Home,
+        },
+        // aggiungo la rotta per visualizzare la pagina About appena creata in resources > js > pages
+        {
+            path: "/about",
+            name: "about",
+            component: About,
         },
     ],
 });

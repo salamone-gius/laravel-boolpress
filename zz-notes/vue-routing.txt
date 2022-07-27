@@ -7,8 +7,6 @@
 
 - in resources > views elimino la pagina welcome.blade.php;
 
-- al posto del tag <a> utilizzo il tag html <router-view></router-view> all'interno dei template per creare link alle rotte gestite da vue router;
-
 - in resources > js creo il file 'router.js';
 
 - in resources > js > router.js creo l'oggetto router che gestirà le rotte frontoffice:
@@ -61,3 +59,7 @@
 - in resources > js > creo una cartella 'pages';
 
 - in resources > js > > pages creo i componenti che renderizzeranno tutte le pagine del frontoffice;
+
+- al posto del tag <a> utilizzo il tag html <router-link></router-link> all'interno dei template per creare link alle rotte gestite da vue router:
+
+    <router-link :to="{ name: routeName }">Label</router-link>
