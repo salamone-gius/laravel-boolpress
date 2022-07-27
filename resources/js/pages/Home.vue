@@ -1,10 +1,21 @@
 <template>
-    <h1>Homepage</h1>
+
+    <!-- 'utilizzo' il componente registrato -->
+    <PostsSection/>
 </template>
 
 <script>
+
+// 'importo' il componente PostsSection
+import PostsSection from '../components/sections/PostsSection.vue';
+
 export default {
     name: 'Home',
+
+    // 'registro' il componente importato
+    components: {
+        PostsSection,
+    }
 }
 </script>
 
