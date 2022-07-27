@@ -2294,8 +2294,10 @@ var staticRenderFns = [function () {
       _c = _vm._self._c;
 
   return _c("div", {
-    staticClass: "about-us container d-flex flex-column justify-content-center align-items-center"
-  }, [_c("h2", [_vm._v("About us")]), _vm._v(" "), _c("p", [_vm._v("Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod numquam facere molestiae omnis corrupti dolorum qui enim quibusdam natus nostrum ullam eius, deleniti ratione libero atque, voluptatibus rem laboriosam similique.")])]);
+    staticClass: "about-us"
+  }, [_c("div", {
+    staticClass: "container d-flex flex-column justify-content-center align-items-center"
+  }, [_c("h2", [_vm._v("About us")]), _vm._v(" "), _c("p", [_vm._v("Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod numquam facere molestiae omnis corrupti dolorum qui enim quibusdam natus nostrum ullam eius, deleniti ratione libero atque, voluptatibus rem laboriosam similique.")])])]);
 }];
 render._withStripped = true;
 
@@ -2438,7 +2440,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".about-us[data-v-520b5d54] {\n  width: 50%;\n  padding: 5rem;\n}\n.about-us h2[data-v-520b5d54] {\n  margin-bottom: 4rem;\n}\n.about-us p[data-v-520b5d54] {\n  text-align: justify;\n}", ""]);
+exports.push([module.i, ".about-us[data-v-520b5d54] {\n  background-color: var(--bg-section-light);\n  padding: var(--section-padding);\n}\n.about-us .container[data-v-520b5d54] {\n  width: 50%;\n}\n.about-us .container h2[data-v-520b5d54] {\n  margin-bottom: 2rem;\n}\n.about-us .container p[data-v-520b5d54] {\n  text-align: justify;\n  padding-bottom: 20rem;\n}", ""]);
 
 // exports
 
