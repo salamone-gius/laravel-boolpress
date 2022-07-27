@@ -67,6 +67,11 @@
                     </form>
                 </div>
             </div>
+            <div class="d-flex justify-content-center mt-4">
+                <a class="navbar-brand" href="{{ route('guest.home') }}">
+                    Return to frontoffice
+                </a>
+            </div>
         </div>
     </div>
 </div>

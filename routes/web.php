@@ -58,4 +58,4 @@ Route::middleware('auth')
 // sotto tutte le altre rotte, ne definisco una di fallback che reindirizza tutte le rotte che non fanno parte dal backoffice alla pagina Vue.js che gestirà il frontoffice 
 Route::get('{any?}', function() {
     return view('guest.home');
-})->where('any', '.*');
+})->where('any', '.*')->name('guest.home');
