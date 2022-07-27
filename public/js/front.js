@@ -15880,7 +15880,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\jaqen\esercizi_boolean\07-Laravel\I-Boolpress-4\laravel-api\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\jaqen\esercizi_boolean\07-Laravel\L-Boolpress-final\laravel-boolpress\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })
