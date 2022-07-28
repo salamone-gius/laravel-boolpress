@@ -1,5 +1,7 @@
 <template>
-    <div class="single-post">
+
+    <!-- per risolvere l'errore dato dalla richiesta asincrona aggiungo un v-if (se/quando è presente post, stampa tutto)-->
+    <div v-if="post" class="single-post">
         <div class="container d-flex flex-column justify-content-center align-items-center">
             <div class="post-box">
                 <h1>{{post.title}}</h1>

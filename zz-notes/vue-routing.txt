@@ -151,6 +151,8 @@
             },
 
     - creo i link necessari ad arrivare a questa pagina. Per inserire una rotta parametrica nel router-link, inserisco params: {prop:proprietà} come secondo parametro dell'attributo :to :
-    
+
         <router-link :to="{name: 'single-post', params: {slug:slug} }">Read more</router-link>
+
+- risolvo l'errore dato dalla richiesta asincrona (alla prima visualizzazione della pagina non ci sono ancora arrivati i dati dalla chiamata axios, quindi all'inizio il loro valore è null) con un semplice v-if che dice:"stampa se/quando c'è l'elemento che arriva da axios". Devo aggiungere questo controllo in tutti i componenti che fanno chiamate ad axios.
 

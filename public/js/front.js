@@ -2306,7 +2306,7 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("section", {
+  return _vm.posts ? _c("section", {
     staticClass: "post-section"
   }, [_c("div", {
     staticClass: "container d-flex flex-column justify-content-center align-items-center"
@@ -2323,7 +2323,7 @@ var render = function render() {
         slug: post.slug
       }
     })], 1);
-  }), 0)])])]);
+  }), 0)])])]) : _vm._e();
 };
 
 var staticRenderFns = [];
@@ -2439,7 +2439,7 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", {
+  return _vm.post ? _c("div", {
     staticClass: "single-post"
   }, [_c("div", {
     staticClass: "container d-flex flex-column justify-content-center align-items-center"
@@ -2452,7 +2452,7 @@ var render = function render() {
         name: "home"
       }
     }
-  }, [_vm._v("Return to all posts")])], 1)]);
+  }, [_vm._v("Return to all posts")])], 1)]) : _vm._e();
 };
 
 var staticRenderFns = [];
