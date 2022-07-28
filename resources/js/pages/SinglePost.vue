@@ -1,12 +1,12 @@
 <template>
     <div class="single-post">
-        <div class="container">
-            <h1>{{post.title}}</h1>
-            <p>{{post.content}}</p>
-            <h4>Author: {{post.user.name}}</h4>
-        </div>
-        <div>
-            <router-link :to="{name: 'home'}">Return to all posts</router-link>
+        <div class="container d-flex flex-column justify-content-center align-items-center">
+            <div class="post-box">
+                <h1>{{post.title}}</h1>
+                <h4>Author: {{post.user.name}}</h4>
+                <p>{{post.content}}</p>
+            </div>
+            <router-link :to="{name: 'home'}" class="router-link">Return to all posts</router-link>
         </div>
     </div>
 </template>
@@ -37,6 +37,31 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+.single-post {
+    background-color: var(--bg-section-light);
+    padding: var(--section-padding);
 
+    h4 {
+        margin-bottom: 2rem;
+    }
+
+    li {
+        list-style: none;
+        margin-bottom: 1.8rem;
+    }
+
+    .post-box{
+        max-width: 70%;
+    }
+    
+    .router-link {
+        margin-top: 5rem;
+        text-decoration: none;
+
+        &:hover {
+            color: blueviolet;
+        }
+    }
+}
 </style>

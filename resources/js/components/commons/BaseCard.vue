@@ -8,7 +8,7 @@
         </p>
 
         <!-- per inserire una rotta parametrica nel router-link, inserisco params: {prop:proprietà} come secondo parametro -->
-        <router-link :to="{name: 'single-post', params: {slug:slug} }">Read more</router-link>
+        <router-link :to="{name: 'single-post', params: {slug:slug} }" class="router-link">Read more</router-link>
     </div>
 </template>
 
@@ -43,6 +43,15 @@ export default {
 
     p {
         margin: 1rem 0;
+    }
+
+    .router-link {
+    margin-top: 5rem;
+    text-decoration: none;
+
+        &:hover {
+            color: blueviolet;
+        }
     }
 }
 
