@@ -2611,7 +2611,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".single-post[data-v-67cb3b51] {\n  background-color: var(--bg-section-light);\n  padding: var(--section-padding);\n}\n.single-post h4[data-v-67cb3b51] {\n  margin-bottom: 2rem;\n}\n.single-post li[data-v-67cb3b51] {\n  list-style: none;\n  margin-bottom: 1.8rem;\n}\n.single-post .post-box[data-v-67cb3b51] {\n  max-width: 70%;\n}\n.single-post .router-link[data-v-67cb3b51] {\n  margin-top: 5rem;\n  text-decoration: none;\n}\n.single-post .router-link[data-v-67cb3b51]:hover {\n  color: blueviolet;\n}", ""]);
+exports.push([module.i, ".single-post[data-v-67cb3b51] {\n  background-color: var(--bg-section-light);\n  padding: var(--section-padding);\n}\n.single-post h4[data-v-67cb3b51]:last-of-type {\n  margin-bottom: 2rem;\n}\n.single-post li[data-v-67cb3b51] {\n  list-style: none;\n  margin-bottom: 1.8rem;\n}\n.single-post .post-box[data-v-67cb3b51] {\n  max-width: 70%;\n}\n.single-post .router-link[data-v-67cb3b51] {\n  margin-top: 5rem;\n  text-decoration: none;\n}\n.single-post .router-link[data-v-67cb3b51]:hover {\n  color: blueviolet;\n}", ""]);
 
 // exports
 
@@ -19717,7 +19717,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _pages_Home__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pages/Home */ "./resources/js/pages/Home.vue");
 /* harmony import */ var _pages_About__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pages/About */ "./resources/js/pages/About.vue");
-/* harmony import */ var _pages_SinglePost__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pages/SinglePost */ "./resources/js/pages/SinglePost.vue");
+/* harmony import */ var _pages_SinglePost__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pages/SinglePost */ "./resources/js/pages/SinglePost.vue");
 /* harmony import */ var _pages_Page404__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/Page404 */ "./resources/js/pages/Page404.vue");
 // importo Vue.js dalla node modules
  // importo Vue router dalla node modules
@@ -19752,7 +19752,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     // uso :slug invece di :id come parametro dinamico (diverso per ogni singolo post)
     path: "/posts/:slug",
     name: "single-post",
-    component: _pages_SinglePost__WEBPACK_IMPORTED_MODULE_6__["default"]
+    component: _pages_SinglePost__WEBPACK_IMPORTED_MODULE_4__["default"]
   }, // aggiungo la rotta per visualizzare la pagina di errore 404 SEMPRE ALLA FINE (dopo aver cercato tra tutte le altre rotte)
   {
     // * = qualsiasi rotta/URI
