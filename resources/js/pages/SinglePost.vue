@@ -37,7 +37,13 @@ export default {
 
             // assegno al singolo post il valore della risposta alla chiamata axios (response)
             this.post = response.data;
-        }) 
+        })
+
+        // se mi arriva una risposta negativa dal server...
+        .catch((error) => {
+            // ... faccio un redirect a Page404
+            this.$router.push({name: 'page-404'});
+        })
     },
 }
 </script>
@@ -58,6 +64,7 @@ export default {
 
     .post-box{
         max-width: 70%;
+        min-width: 60%;
         background-color: white;
         padding: 1.5rem;
         border-radius: 1.25rem;

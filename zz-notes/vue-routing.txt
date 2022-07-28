@@ -156,3 +156,24 @@
 
 - risolvo l'errore dato dalla richiesta asincrona (alla prima visualizzazione della pagina non ci sono ancora arrivati i dati dalla chiamata axios, quindi all'inizio il loro valore è null) con un semplice v-if che dice:"stampa se/quando c'è l'elemento che arriva da axios". Devo aggiungere questo controllo in tutti i componenti che fanno chiamate ad axios.
 
+- aggiungo un controllo per la gestione dell'arrivo di json vuoti:
+
+    - in app > Http > Controllers > Api > PostController.php nel metodo show() aggiungo un controllo:
+
+        // SE $post è VUOTO...
+        if (empty($post)) {
+            // ... stampa un MESSAGGIO con testo PAGE NOT FOUND e lo stato 404
+            return response()->json(['message' => 'Post not found'], 404);
+        }
+
+    - in resources > js > pages > SinglePost.vue aggiungo un redirect alla pagina 404 al metodo catch() della chiamata axios:
+
+        // se mi arriva una risposta negativa dal server...
+        .catch((error) => {
+            // ... faccio un redirect a Page404
+            this.$router.push({name: 'page-404'});
+        })
+
+
+
+

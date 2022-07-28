@@ -2095,6 +2095,12 @@ __webpack_require__.r(__webpack_exports__);
     axios.get("/api/posts/".concat(this.$route.params.slug)).then(function (response) {
       // assegno al singolo post il valore della risposta alla chiamata axios (response)
       _this.post = response.data;
+    }) // se mi arriva una risposta negativa dal server...
+    ["catch"](function (error) {
+      // ... faccio un redirect a Page404
+      _this.$router.push({
+        name: 'page-404'
+      });
     });
   }
 });
@@ -2611,7 +2617,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".single-post[data-v-67cb3b51] {\n  background-color: var(--bg-section-light);\n  padding: var(--section-padding);\n}\n.single-post p[data-v-67cb3b51] {\n  margin: 2rem 0;\n}\n.single-post li[data-v-67cb3b51] {\n  list-style: none;\n  margin-bottom: 1.8rem;\n}\n.single-post .post-box[data-v-67cb3b51] {\n  max-width: 70%;\n  background-color: white;\n  padding: 1.5rem;\n  border-radius: 1.25rem;\n  box-shadow: 0 0 5px 2px gray;\n  min-height: 21rem;\n}\n.single-post .router-link[data-v-67cb3b51] {\n  margin-top: 5rem;\n  text-decoration: none;\n}\n.single-post .router-link[data-v-67cb3b51]:hover {\n  color: blueviolet;\n}", ""]);
+exports.push([module.i, ".single-post[data-v-67cb3b51] {\n  background-color: var(--bg-section-light);\n  padding: var(--section-padding);\n}\n.single-post p[data-v-67cb3b51] {\n  margin: 2rem 0;\n}\n.single-post li[data-v-67cb3b51] {\n  list-style: none;\n  margin-bottom: 1.8rem;\n}\n.single-post .post-box[data-v-67cb3b51] {\n  max-width: 70%;\n  min-width: 60%;\n  background-color: white;\n  padding: 1.5rem;\n  border-radius: 1.25rem;\n  box-shadow: 0 0 5px 2px gray;\n  min-height: 21rem;\n}\n.single-post .router-link[data-v-67cb3b51] {\n  margin-top: 5rem;\n  text-decoration: none;\n}\n.single-post .router-link[data-v-67cb3b51]:hover {\n  color: blueviolet;\n}", ""]);
 
 // exports
 
