@@ -8,7 +8,7 @@
                     <li class="col-4" v-for="post in posts" :key="post.slug">
 
                         <!-- passo le informazioni da un componente padre ad un componente figlio attraverso le props -->
-                        <BaseCard :title="post.title" :content="post.content"/>
+                        <BaseCard :title="post.title" :content="post.content" :slug="post.slug"/>
                     </li>
                 </ul>
             </div>

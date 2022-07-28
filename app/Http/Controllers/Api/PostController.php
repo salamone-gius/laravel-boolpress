@@ -19,4 +19,14 @@ class PostController extends Controller
         // restituisco i post filtrati in formato json
         return response()->json($posts);
     }
+
+    // passo lo slug come argomento del metodo show. Questa è l'informazione parametrica che gestisce la vista di un post rispetto ad un altro
+    public function show($slug) {
+
+        // attraverso una query filtro i dati che voglio. In questo caso il PRIMO POST DOVE dove lo slug è questo $slug (il parametro passato) INSIEME (inner join) ai dati delle tabelle relazionate (i nomi dei metodi nei model)
+        $post = Post::where('slug', $slug)->with(['category', 'tags', 'user'])->first();
+
+        // restituisco il risultato della query in formato json
+        return response()->json($post);
+    }
 }

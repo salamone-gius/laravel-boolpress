@@ -6,7 +6,9 @@
         <p class="card-content">
             {{content}}
         </p>
-        <a href="#">Leggi di più</a>
+
+        <!-- per inserire una rotta parametrica nel router-link, inserisco params: {prop:proprietà} come secondo parametro -->
+        <router-link :to="{name: 'single-post', params: {slug:slug} }">Read more</router-link>
     </div>
 </template>
 
@@ -21,6 +23,10 @@ export default {
         },
 
         content: {
+            type: String
+        },
+
+        slug: {
             type: String
         },
     },

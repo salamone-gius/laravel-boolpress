@@ -13,6 +13,9 @@ import Home from "./pages/Home";
 // importo il componente che restituirà la pagina About
 import About from "./pages/About";
 
+// importo il componente che restituirà la pagina SinglePost
+import SinglePost from "./pages/SinglePost";
+
 // importo il componente che restituirà la pagina Page404
 import Page404 from "./pages/Page404";
 
@@ -34,6 +37,13 @@ const router = new VueRouter({
             path: "/about",
             name: "about",
             component: About,
+        },
+        // aggiungo la rotta PARAMETRICA o DINAMICA per visualizzare la pagina di ogni singolo post
+        {
+            // uso :slug invece di :id come parametro dinamico (diverso per ogni singolo post)
+            path: "/posts/:slug",
+            name: "single-post",
+            component: SinglePost,
         },
         // aggiungo la rotta per visualizzare la pagina di errore 404 SEMPRE ALLA FINE (dopo aver cercato tra tutte le altre rotte)
         {

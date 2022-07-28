@@ -88,3 +88,69 @@
                     },
                 ],
             });
+
+- aggiunta della pagina che visualizza il post singolo usando lo slug:
+
+    - in resources > js > pages creo il componente SinglePost;
+
+    - in resources > js > router.js:
+
+        - importo il componente SinglePost:
+        
+            import SinglePost from "./pages/SinglePost";
+    
+        - definisco la rotta che condurrà al componente che renderizzerà la pagina del singolo post:
+
+            const router = new VueRouter({
+
+                routes: [
+
+                    // aggiungo la rotta PARAMETRICA o DINAMICA (:) per visualizzare la pagina di ogni singolo post
+                    {
+                        // uso :slug invece di :id come parametro dinamico (diverso per ogni singolo post)
+                        path: "/posts/:slug",
+                        name: "single-post",
+                        component: SinglePost,
+                    },
+                ],
+            });
+
+    - in routes > api.php creo l'endpoint che restituirà le informazioni relative al singolo post:
+
+        // imposto l'endpoint che deve restituire il singolo post (e tutte le sue informazioni) attraverso il metodo show del PostController con namespace Api. Tra le graffe metterò la proprietà univoca che identifica quel post rispetto ad un altro
+        Route::get('posts/{slug}', 'Api\PostController@show');
+
+    - in app > Http > Controllers > Api > PostController.php creo il metodo show che deve restituire la vista del singolo post:
+
+            // passo lo slug come argomento del metodo show. Questa è l'informazione parametrica che gestisce la vista di un post rispetto ad un altro
+            public function show($slug) {
+
+                // attraverso una query filtro i dati che voglio. In questo caso il PRIMO POST DOVE dove lo slug è questo $slug (il parametro passato) INSIEME (inner join) ai dati delle tabelle relazionate (i nomi dei metodi nei model)
+                $post = Post::where('slug', $slug)->with(['category', 'tags', 'user'])->first();
+
+                // restituisco il risultato della query in formato json
+                return response()->json($post);
+            }
+
+    - in resources > js > pages > SinglePost:
+
+        - imposto nei data() un singolo post con valore null;
+
+        - all'hook created() faccio la chiamata axios e assegno il risultato della risposta alla chiamata come valore del singolo pos:
+
+            created() {
+
+                // imposto una chiamata Axios all'endpoint parametrico attraverso l'uso del template literal
+                axios.get(`/api/posts/${this.$route.params.slug}`)
+
+                .then((response) => {
+
+                    // assegno al singolo post il valore della risposta alla chiamata axios (response)
+                    this.post = response.data;
+                }) 
+            },
+
+    - creo i link necessari ad arrivare a questa pagina. Per inserire una rotta parametrica nel router-link, inserisco params: {prop:proprietà} come secondo parametro dell'attributo :to :
+    
+        <router-link :to="{name: 'single-post', params: {slug:slug} }">Read more</router-link>
+

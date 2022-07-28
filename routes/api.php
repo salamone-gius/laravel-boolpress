@@ -16,3 +16,6 @@ use Illuminate\Support\Facades\Route;
 
 // imposto la rotta che deve restituire le informazioni della tabella 'posts' attraverso il metodo index del PostController con namespace Api
 Route::get('posts', 'Api\PostController@index');
+
+// imposto l'endpoint che deve restituire il singolo post (e tutte le sue informazioni) attraverso il metodo show del PostController con namespace Api. Tra le graffe metterò la proprietà univoca che identifica quel post rispetto ad un altro
+Route::get('posts/{slug}', 'Api\PostController@show');
