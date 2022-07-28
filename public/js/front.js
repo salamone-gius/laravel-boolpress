@@ -2445,7 +2445,7 @@ var render = function render() {
     staticClass: "container d-flex flex-column justify-content-center align-items-center"
   }, [_c("div", {
     staticClass: "post-box"
-  }, [_c("h1", [_vm._v(_vm._s(_vm.post.title))]), _vm._v(" "), _c("h4", [_vm._v("Author: " + _vm._s(_vm.post.user.name))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.post.content))])]), _vm._v(" "), _c("router-link", {
+  }, [_c("h1", [_vm._v(_vm._s(_vm.post.title))]), _vm._v(" "), _c("h4", [_vm._v("Author: " + _vm._s(_vm.post.user.name))]), _vm._v(" "), _vm.post.category ? _c("div", [_c("h4", [_vm._v("Category: " + _vm._s(_vm.post.category.name))])]) : _vm._e(), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.post.content))])]), _vm._v(" "), _c("router-link", {
     staticClass: "router-link",
     attrs: {
       to: {
@@ -2611,7 +2611,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".single-post[data-v-67cb3b51] {\n  background-color: var(--bg-section-light);\n  padding: var(--section-padding);\n}\n.single-post h4[data-v-67cb3b51]:last-of-type {\n  margin-bottom: 2rem;\n}\n.single-post li[data-v-67cb3b51] {\n  list-style: none;\n  margin-bottom: 1.8rem;\n}\n.single-post .post-box[data-v-67cb3b51] {\n  max-width: 70%;\n}\n.single-post .router-link[data-v-67cb3b51] {\n  margin-top: 5rem;\n  text-decoration: none;\n}\n.single-post .router-link[data-v-67cb3b51]:hover {\n  color: blueviolet;\n}", ""]);
+exports.push([module.i, ".single-post[data-v-67cb3b51] {\n  background-color: var(--bg-section-light);\n  padding: var(--section-padding);\n}\n.single-post p[data-v-67cb3b51] {\n  margin: 2rem 0;\n}\n.single-post li[data-v-67cb3b51] {\n  list-style: none;\n  margin-bottom: 1.8rem;\n}\n.single-post .post-box[data-v-67cb3b51] {\n  max-width: 70%;\n  background-color: white;\n  padding: 1.5rem;\n  border-radius: 1.25rem;\n  box-shadow: 0 0 5px 2px gray;\n  min-height: 21rem;\n}\n.single-post .router-link[data-v-67cb3b51] {\n  margin-top: 5rem;\n  text-decoration: none;\n}\n.single-post .router-link[data-v-67cb3b51]:hover {\n  color: blueviolet;\n}", ""]);
 
 // exports
 

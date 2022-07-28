@@ -4,9 +4,9 @@
             <div class="post-box">
                 <h1>{{post.title}}</h1>
                 <h4>Author: {{post.user.name}}</h4>
-                <!-- <div v-if="post.category.name">
+                <div v-if="post.category">
                     <h4>Category: {{post.category.name}}</h4>
-                </div> -->
+                </div>
                 <p>{{post.content}}</p>
             </div>
             <router-link :to="{name: 'home'}" class="router-link">Return to all posts</router-link>
@@ -45,8 +45,8 @@ export default {
     background-color: var(--bg-section-light);
     padding: var(--section-padding);
 
-    h4:last-of-type {
-        margin-bottom: 2rem;
+    p {
+        margin: 2rem 0;
     }
 
     li {
@@ -56,6 +56,12 @@ export default {
 
     .post-box{
         max-width: 70%;
+        background-color: white;
+        padding: 1.5rem;
+        border-radius: 1.25rem;
+        box-shadow: 0 0 5px 2px gray;
+        min-height: 21rem;
+
     }
     
     .router-link {
