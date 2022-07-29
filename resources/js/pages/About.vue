@@ -15,7 +15,6 @@ export default {
 
 <style lang="scss" scoped>
 .about-us {
-    background-color: var(--bg-section-light);
     padding: var(--section-padding);
 
     .container {

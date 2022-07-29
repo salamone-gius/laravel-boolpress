@@ -18,7 +18,6 @@ export default {
 
 <style lang="scss" scoped>
 .page-404 {
-    background-color: var(--bg-section-light);
     padding: var(--section-padding);
 
     .container {

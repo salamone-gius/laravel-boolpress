@@ -21,6 +21,11 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+main {
+    height: 80vh;
+    width: 100%;
+    overflow-y: scroll;
+    background-color: var(--bg-section-light);
+}
 </style>

@@ -59,7 +59,6 @@ export default {
 
 <style lang="scss" scoped>
 .post-section {
-    background-color: var(--bg-section-light);
     padding: var(--section-padding);
 
     h1 {

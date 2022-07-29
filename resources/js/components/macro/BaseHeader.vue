@@ -47,6 +47,7 @@ export default {
 <style lang="scss" scoped>
 .header {
     padding: var(--header-padding);
+    height: 10vh;
 
     li {
         list-style: none;

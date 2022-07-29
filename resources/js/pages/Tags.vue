@@ -42,7 +42,6 @@ export default {
 
 <style lang="scss" scoped>
 .tags-section {
-    background-color: var(--bg-section-light);
     padding: var(--section-padding);
 
     h1 {

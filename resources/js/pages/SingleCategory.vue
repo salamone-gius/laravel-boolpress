@@ -48,7 +48,6 @@ export default {
 
 <style lang="scss" scoped>
 .single-category {
-    background-color: var(--bg-section-light);
     padding: var(--section-padding);
 
     p {

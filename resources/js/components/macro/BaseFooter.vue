@@ -15,5 +15,6 @@ export default {
 <style lang="scss" scoped>
 .footer {
     padding: var(--footer-padding);
+    height: 10vh;
 }
 </style>
