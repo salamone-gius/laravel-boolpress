@@ -22,9 +22,13 @@ class CategoryController extends Controller
     // passo lo slug con la dependancy injection
     public function show($slug) {
 
-        // attraverso una query prendo la PRIMA categoria DOVE la proprietà slug è uguale allo $slug passato come argomento del metodo INSIEME CON tutte le relazioni con la tabella posts
-        $category = Category::where('slug', $slug)->with('posts')->first();
-        
+        // per effettuare una sub-query su qualcosa a cui il dato è relazionato, parto con il with e dentro metto le condizioni del sotto-dato su cui voglio filtrare
+        // prendo la PRIMA categoria DOVE la proprietà slug è uguale allo $slug passato come argomento del metodo INSIEME CON [ => quel post ($query) nella tabella posts (nello specifico) DOVE published è uguale a 1 (ovvero true = pubblicato)]
+        // passo al with un array associativo dove la chiave è il metodo del model che definisce il tipo di relazione, => il valore è una funzione anonima che restituisce il risultato della sub-query
+        $category = Category::with(['posts' => function($query) {
+            $query->where('published', 1);
+        }])->where('slug', $slug)->first();
+
         // restituisco la singola categoria con le relazioni con i post
         return $category;
     }

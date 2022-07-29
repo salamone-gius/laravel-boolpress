@@ -21,8 +21,12 @@ class TagController extends Controller
 
     public function show($slug) {
 
-        // attraverso una query prendo il PRIMO tag DOVE la proprietà slug è uguale allo $slug passato come argomento del metodo INSIEME CON tutte le relazioni con la tabella posts
-        $tag = Tag::where('slug', $slug)->with('posts')->first();
+        // per effettuare una sub-query su qualcosa a cui il dato è relazionato, parto con il with e dentro metto le condizioni del sotto-dato su cui voglio filtrare
+        // prendo il PRIMO tag DOVE la proprietà slug è uguale allo $slug passato come argomento del metodo INSIEME CON [ => quel post ($query) nella tabella posts (nello specifico) DOVE published è uguale a 1 (ovvero true = pubblicato)]
+        // passo al with un array associativo dove la chiave è il metodo del model che definisce il tipo di relazione, => il valore è una funzione anonima che restituisce il risultato della sub-query
+        $tag = Tag::with(['posts' => function($query) {
+            $query->where('published', 1);
+        }])->where('slug', $slug)->first();
 
         // restituisco il tag singolo con le relazioni con i post
         return $tag;
