@@ -1,5 +1,5 @@
 <template>
-    <div class="single-category">
+    <div v-if="category" class="single-category">
         <div class="container d-flex flex-column justify-content-center align-items-center">
             <template v-if="category.posts.length > 0">
                 <div v-if="category" class="category-box">

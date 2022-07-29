@@ -2617,7 +2617,7 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", {
+  return _vm.category ? _c("div", {
     staticClass: "single-category"
   }, [_c("div", {
     staticClass: "container d-flex flex-column justify-content-center align-items-center"
@@ -2644,7 +2644,7 @@ var render = function render() {
         name: "categories"
       }
     }
-  }, [_vm._v("Return to all categories")])], 2)]);
+  }, [_vm._v("Return to all categories")])], 2)]) : _vm._e();
 };
 
 var staticRenderFns = [];
@@ -2719,7 +2719,7 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", {
+  return _vm.tag ? _c("div", {
     staticClass: "single-tag"
   }, [_c("div", {
     staticClass: "container d-flex flex-column justify-content-center align-items-center"
@@ -2746,7 +2746,7 @@ var render = function render() {
         name: "tags"
       }
     }
-  }, [_vm._v("Return to all tags")])], 2)]);
+  }, [_vm._v("Return to all tags")])], 2)]) : _vm._e();
 };
 
 var staticRenderFns = [];

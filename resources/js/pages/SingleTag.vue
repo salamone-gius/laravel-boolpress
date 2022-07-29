@@ -1,5 +1,5 @@
 <template>
-    <div class="single-tag">
+    <div v-if="tag" class="single-tag">
         <div class="container d-flex flex-column justify-content-center align-items-center">
             <template v-if="tag.posts.length > 0">
                 <div v-if="tag" class="tag-box">
