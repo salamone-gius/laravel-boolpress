@@ -9,6 +9,13 @@
                 <div v-if="post.category">
                     <h4>Category: {{post.category.name}}</h4>
                 </div>
+                <div v-if="post.tags.length > 0">
+                    <div>
+                        <h4>Tags:
+                            <span v-for="tag in post.tags" :key="tag.id">{{tag.name + '  '}}</span>
+                        </h4>
+                    </div>
+                </div>
                 <p>{{post.content}}</p>
             </div>
             <router-link :to="{name: 'home'}" class="router-link">Return to all posts</router-link>
