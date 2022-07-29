@@ -10,6 +10,12 @@ Vue.use(VueRouter);
 // importo il componente che restituirà la pagina Home (si deve creare)
 import Home from "./pages/Home";
 
+// importo il componente che restituirà la pagina Categories
+import Categories from "./pages/Categories";
+
+// importo il componente che restituirà la pagina SingleCategory
+import SingleCategory from "./pages/SingleCategory";
+
 // importo il componente che restituirà la pagina About
 import About from "./pages/About";
 
@@ -31,6 +37,19 @@ const router = new VueRouter({
             path: "/",
             name: "home",
             component: Home,
+        },
+        // aggiungo la rotta per visualizzare la pagina con tutte le categorie
+        {
+            path: "/categories",
+            name: "categories",
+            component: Categories,
+        },
+        // aggiungo la rotta PARAMETRICA o DINAMICA per visualizzare la pagina di ogni singola categoria con i suoi post associati
+        {
+            // uso :slug invece di :id come parametro dinamico (diverso per ogni singola categoria)
+            path: "/categories/:slug",
+            name: "single-category",
+            component: SingleCategory,
         },
         // aggiungo la rotta per visualizzare la pagina About appena creata in resources > js > pages
         {

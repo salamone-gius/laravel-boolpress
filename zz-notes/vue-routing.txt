@@ -175,5 +175,174 @@
         })
 
 
+------------------------------------- AGGIUNGO LA PAGINA CON TUTTE LE CATEGORIE (1 - 7)---------------------------------------
+------------------------------ CLICCANDO SULLA SINGOLA CATEGORIA, MOSTRO I POST ASSOCIATI (8 - )------------------------------
 
 
+    1. creo un controller dedicato alle categorie con namespace Api:
+        php artisan make:controller Api/CategoryController
+
+
+    2. in routes > api.php imposto la rotta che deve restituire tutte le categorie da gestire con il metodo index() del CategoryController con namespace Api:
+
+        Route::get('categories', 'Api\CategoryController@index');
+
+
+    3. in app > Http > Controllers > Api > CategoryController.php:
+
+        - importo il modello delle categorie:
+
+            use App\Category;
+
+        - creo il metodo index() che mi restituisce tutte le categorie:
+
+            public function index() {
+
+                $categories = Category::all();
+
+                return $categories;
+            }
+
+
+    4. in resources > js > pages creo il componente Categories;
+
+
+    5. in resources > js > router.js:
+
+        - importo il componente Categories:
+        
+            import Categories from "./pages/Categories";
+    
+        - definisco la rotta che condurrà al componente Categories che renderizzerà la pagina con tutte le categorie:
+
+            const router = new VueRouter({
+
+                routes: [
+
+                    {
+                        path: "/categories",
+                        name: "categories",
+                        component: Categories,
+                    },
+                ],
+            });
+
+
+    6. in resources > js > pages > Categories:
+
+        - imposto nei data() le categorie con valore array vuoto:
+
+            data() {
+                return {
+                    categories: [],
+                }
+            },
+
+        - all'hook created() faccio la chiamata axios all'endpoint e assegno il risultato della risposta alla chiamata come valore dell'array vuoto categories:
+
+            created() {
+
+                // con axios contatto l'endpoint
+                axios.get('/api/categories')
+
+                .then((response) => {
+
+                    // assegno la risposta dell'endpoint come valore dell'array categories
+                    this.categories = response.data;
+                })
+            }
+
+        - se ci sono (controllo v-if/v-else) stampo in pagina un elenco di tutte le categorie, altrimenti un messaggio:
+
+            <h1>All Categories</h1>
+            <ul v-if="categories.length > 0">
+                <li v-for="category in categories" :key="category.id">
+                    {{category.name}}
+                </li>
+            </ul>
+            <h1 v-else>There are no categories</h1>
+
+
+    7. in resources > js > components > macro > BaseHeader creo il router-link per la pagina con tutte le categorie:
+
+        <router-link :to="{ name: 'categories' }">Categories</router-link>
+
+
+    8. in routes > api.php creo la rotta dinamica/parametrica che deve restituire tutti i post associati alla singola categoria (con lo slug come parametro) da gestire con il metodo show() del CategoryController con namespace Api:
+
+        Route::get('categories/{slug}', 'Api\CategoryController@show');
+
+
+    9. in app > Http > Controllers > Api > CategoryController.php:
+
+        - creo il metodo show() che mi restituisce tutti i post associati alla singola categoria:
+
+            // passo lo slug con la dependancy injection
+            public function show($slug) {
+
+                // attraverso una query prendo la PRIMA categoria DOVE la proprietà slug è uguale allo $slug passato come argomento del metodo INSIEME CON tutte le relazioni con la tabella posts
+                $category = Category::where('slug', $slug)->with('posts')->first();
+                
+                // restituisco la singola categoria con le relazioni con i post
+                return $category;
+            }
+
+
+    10. in resources > js > pages creo il componente SingleCategory;
+
+
+    11. in resources > js > router.js:
+
+        - importo il componente SingleCategory:
+        
+            import SingleCategory from "./pages/SingleCategory";
+    
+        - definisco la rotta PARAMETRICA o DINAMICA che condurrà al componente SingleCategory che renderizzerà la pagina della singola categoria con tutti i post ad essa associati:
+
+            {
+                // uso :slug invece di :id come parametro dinamico (diverso per ogni singola categoria)
+                path: "/categories/:slug",
+                name: "single-category",
+                component: SingleCategory,
+            },
+
+
+    12. in resources > js > pages > SingleCategory:
+
+        - imposto nei data() la singola categoria con valore null:
+
+            data() {
+                return {
+                    category: null,
+                }
+            },
+
+        - all'hook created() faccio la chiamata axios all'endpoint e assegno il risultato della risposta alla chiamata come valore della category null:
+
+            created() {
+
+                // imposto una chiamata Axios all'endpoint parametrico attraverso l'uso del template literal
+                axios.get(`/api/categories/${this.$route.params.slug}`)
+                
+                .then((response) => {
+
+                    // assegno alla singola categoria il valore della risposta alla chiamata axios (response)
+                    this.category = response.data;
+                })
+            }
+
+        - se ci sono (controllo v-if/v-else) stampo in pagina un elenco di tutte le categorie, altrimenti un messaggio:
+
+            <template v-if="category.posts.length > 0">
+                <div v-if="category" class="category-box">
+                    <h1>All posts with "{{category.name}}" category:</h1>
+                    <ul>
+                        <li v-for="post in category.posts" :key="post.id">
+                            <h4>{{post.title}}</h4>
+                        </li>
+                    </ul>
+                </div>
+            </template>
+            <div v-else>
+                <h2>There are no related posts</h2>
+            </div>

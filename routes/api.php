@@ -17,5 +17,11 @@ use Illuminate\Support\Facades\Route;
 // imposto la rotta che deve restituire le informazioni della tabella 'posts' attraverso il metodo index del PostController con namespace Api
 Route::get('posts', 'Api\PostController@index');
 
-// imposto l'endpoint che deve restituire il singolo post (e tutte le sue informazioni) attraverso il metodo show del PostController con namespace Api. Tra le graffe metterò la proprietà univoca che identifica quel post rispetto ad un altro
+// imposto la rotta che deve restituire il singolo post (e tutte le sue informazioni) attraverso il metodo show del PostController con namespace Api. Tra le graffe metterò la proprietà univoca che identifica quel post rispetto ad un altro
 Route::get('posts/{slug}', 'Api\PostController@show');
+
+// imposto la rotta che deve restituire tutte le categorie da gestire con il metodo index() del CategoryController con namespace Api
+Route::get('categories', 'Api\CategoryController@index');
+
+// imposto la rotta dinamica/parametrica che deve restituire tutti i post associati alla singola categoria (con lo slug come parametro) da gestire con il metodo show() del CategoryController con namespace Api
+Route::get('categories/{slug}', 'Api\CategoryController@show');

@@ -1,7 +1,7 @@
 <template>
     <section  v-if="posts" class="post-section">
         <div class="container d-flex flex-column justify-content-center align-items-center">
-            <h1>All posts</h1>
+            <h1>All Posts</h1>
             <div>
                 <ul class="row">
                     <!-- ciclo e stampo con Vue -->

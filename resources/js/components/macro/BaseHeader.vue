@@ -12,6 +12,10 @@
                             <router-link :to="{ name: 'home' }" class="router-link">Home</router-link>
                         </li>
                         <li>
+                            <!-- inserisco il router-link per la pagina con tutte le categorie -->
+                            <router-link :to="{ name: 'categories' }">Categories</router-link>
+                        </li>
+                        <li>
                             <!-- inserisco il router-link per la pagina About -->
                             <router-link :to="{ name: 'about' }">About</router-link>
                         </li>
