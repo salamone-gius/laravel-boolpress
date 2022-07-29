@@ -12,7 +12,9 @@
                 <div v-if="post.tags.length > 0">
                     <div>
                         <h4>Tags:
-                            <span v-for="tag in post.tags" :key="tag.id">{{tag.name + '  '}}</span>
+                            <span v-for="tag in post.tags" :key="tag.id">
+                                <router-link class="router-link" :to="{name: 'single-tag', params: {slug: tag.slug} }"> {{tag.name}} </router-link>
+                            </span>
                         </h4>
                     </div>
                 </div>

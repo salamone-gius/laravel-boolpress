@@ -2677,7 +2677,17 @@ var render = function render() {
   }, [_c("h1", [_vm._v(_vm._s(_vm.post.title))]), _vm._v(" "), _c("h4", [_vm._v("Author: " + _vm._s(_vm.post.user.name))]), _vm._v(" "), _vm.post.category ? _c("div", [_c("h4", [_vm._v("Category: " + _vm._s(_vm.post.category.name))])]) : _vm._e(), _vm._v(" "), _vm.post.tags.length > 0 ? _c("div", [_c("div", [_c("h4", [_vm._v("Tags:\n                        "), _vm._l(_vm.post.tags, function (tag) {
     return _c("span", {
       key: tag.id
-    }, [_vm._v(_vm._s(tag.name + "  "))]);
+    }, [_c("router-link", {
+      staticClass: "router-link",
+      attrs: {
+        to: {
+          name: "single-tag",
+          params: {
+            slug: tag.slug
+          }
+        }
+      }
+    }, [_vm._v(" " + _vm._s(tag.name) + " ")])], 1);
   })], 2)])]) : _vm._e(), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.post.content))])]), _vm._v(" "), _c("router-link", {
     staticClass: "router-link",
     attrs: {
