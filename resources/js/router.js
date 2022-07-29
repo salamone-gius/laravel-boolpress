@@ -16,6 +16,12 @@ import Categories from "./pages/Categories";
 // importo il componente che restituirà la pagina SingleCategory
 import SingleCategory from "./pages/SingleCategory";
 
+// importo il componente che restituirà la pagina Tags
+import Tags from "./pages/Tags";
+
+// importo il componente che restituirà la pagina SingleTag
+import SingleTag from "./pages/SingleTag";
+
 // importo il componente che restituirà la pagina About
 import About from "./pages/About";
 
@@ -50,6 +56,19 @@ const router = new VueRouter({
             path: "/categories/:slug",
             name: "single-category",
             component: SingleCategory,
+        },
+        // aggiungo la rotta per visualizzare la pagina con tutti i tag
+        {
+            path: "/tags",
+            name: "tags",
+            component: Tags,
+        },
+        // aggiungo la rotta PARAMETRICA o DINAMICA per visualizzare la pagina di ogni singolo tag con i suoi post associati
+        {
+            // uso :slug invece di :id come parametro dinamico (diverso per ogni singolo tag)
+            path: "/tags/:slug",
+            name: "single-tag",
+            component: SingleTag,
         },
         // aggiungo la rotta per visualizzare la pagina About appena creata in resources > js > pages
         {

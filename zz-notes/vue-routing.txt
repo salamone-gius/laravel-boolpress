@@ -176,19 +176,19 @@
 
 
 ------------------------------------- AGGIUNGO LA PAGINA CON TUTTE LE CATEGORIE (1 - 7)---------------------------------------
------------------------------- CLICCANDO SULLA SINGOLA CATEGORIA, MOSTRO I POST ASSOCIATI (8 - )------------------------------
+------------------------------ CLICCANDO SULLA SINGOLA CATEGORIA, MOSTRO I POST ASSOCIATI (8 - 12)------------------------------
 
 
     1. creo un controller dedicato alle categorie con namespace Api:
-        php artisan make:controller Api/CategoryController
+        php artisan make:controller Api/TagController
 
 
-    2. in routes > api.php imposto la rotta che deve restituire tutte le categorie da gestire con il metodo index() del CategoryController con namespace Api:
+    2. in routes > api.php imposto la rotta che deve restituire tutte le categorie da gestire con il metodo index() del TagController con namespace Api:
 
-        Route::get('categories', 'Api\CategoryController@index');
+        Route::get('categories', 'Api\TagController@index');
 
 
-    3. in app > Http > Controllers > Api > CategoryController.php:
+    3. in app > Http > Controllers > Api > TagController.php:
 
         - importo il modello delle categorie:
 
@@ -268,12 +268,12 @@
         <router-link :to="{ name: 'categories' }">Categories</router-link>
 
 
-    8. in routes > api.php creo la rotta dinamica/parametrica che deve restituire tutti i post associati alla singola categoria (con lo slug come parametro) da gestire con il metodo show() del CategoryController con namespace Api:
+    8. in routes > api.php creo la rotta dinamica/parametrica che deve restituire tutti i post associati alla singola categoria (con lo slug come parametro) da gestire con il metodo show() del TagController con namespace Api:
 
-        Route::get('categories/{slug}', 'Api\CategoryController@show');
+        Route::get('categories/{slug}', 'Api\TagController@show');
 
 
-    9. in app > Http > Controllers > Api > CategoryController.php:
+    9. in app > Http > Controllers > Api > TagController.php:
 
         - creo il metodo show() che mi restituisce tutti i post associati alla singola categoria:
 
@@ -338,6 +338,180 @@
                     <h1>All posts with "{{category.name}}" category:</h1>
                     <ul>
                         <li v-for="post in category.posts" :key="post.id">
+                            <h4>{{post.title}}</h4>
+                        </li>
+                    </ul>
+                </div>
+            </template>
+            <div v-else>
+                <h2>There are no related posts</h2>
+            </div>
+
+
+
+------------------------------------- AGGIUNGO LA PAGINA CON TUTTI I TAG (1 - 7)---------------------------------------
+------------------------------ CLICCANDO SUL SINGOLO TAG, MOSTRO I POST ASSOCIATI (8 - 12)------------------------------
+
+
+    1. creo un controller dedicato alle categorie con namespace Api:
+        php artisan make:controller Api/TagController
+
+
+    2. in routes > api.php imposto la rotta che deve restituire tutte le categorie da gestire con il metodo index() del TagController con namespace Api:
+
+        Route::get('categories', 'Api\TagController@index');
+
+
+    3. in app > Http > Controllers > Api > TagController.php:
+
+        - importo il modello delle categorie:
+
+            use App\Tag;
+
+        - creo il metodo index() che mi restituisce tutte le categorie:
+
+            public function index() {
+
+                $tags = Tag::all();
+
+                return $tags;
+            }
+
+
+    4. in resources > js > pages creo il componente Tags;
+
+
+    5. in resources > js > router.js:
+
+        - importo il componente Tags:
+        
+            import Tags from "./pages/Tags";
+    
+        - definisco la rotta che condurrà al componente Tags che renderizzerà la pagina con tutte le categorie:
+
+            const router = new VueRouter({
+
+                routes: [
+
+                    {
+                        path: "/tags",
+                        name: "tags",
+                        component: Tag,
+                    },
+                ],
+            });
+
+
+    6. in resources > js > pages > Tags:
+
+        - imposto nei data() i tag con valore array vuoto:
+
+            data() {
+                return {
+                    tags: [],
+                }
+            },
+
+        - all'hook created() faccio la chiamata axios all'endpoint e assegno il risultato della risposta alla chiamata come valore dell'array vuoto tags:
+
+            created() {
+
+                // con axios contatto l'endpoint
+                axios.get('/api/tags')
+
+                .then((response) => {
+
+                    // assegno la risposta dell'endpoint come valore dell'array tags
+                    this.tags = response.data;
+                })
+            }
+
+        - se ci sono (controllo v-if/v-else) stampo in pagina un elenco di tutti tag, altrimenti un messaggio:
+
+            <h1>All Tags</h1>
+            <ul v-if="tags.length > 0">
+                <li v-for="tag in tags" :key="tags.id">
+                    {{tag.name}}
+                </li>
+            </ul>
+            <h1 v-else>There are no tags</h1>
+
+
+    7. in resources > js > components > macro > BaseHeader creo il router-link per la pagina con tutti i tag:
+
+        <router-link :to="{ name: 'tags' }">Tags</router-link>
+
+
+    8. in routes > api.php creo la rotta dinamica/parametrica che deve restituire tutti i post associati al singolo tag (con lo slug come parametro) da gestire con il metodo show() del TagController con namespace Api:
+
+        Route::get('tags/{slug}', 'Api\TagController@show');
+
+
+    9. in app > Http > Controllers > Api > TagController.php:
+
+        - creo il metodo show() che mi restituisce tutti i post associati al singolo tag:
+
+            // passo lo slug con la dependancy injection
+            public function show($slug) {
+
+                // attraverso una query prendo il PRIMO tag DOVE la proprietà slug è uguale allo $slug passato come argomento del metodo INSIEME CON tutte le relazioni con la tabella posts
+                $tag = Tag::where('slug', $slug)->with('posts')->first();
+                
+                // restituisco il tag singolo con le relazioni con i post
+                return $tag;
+            }
+
+
+    10. in resources > js > pages creo il componente SingleTag;
+
+
+    11. in resources > js > router.js:
+
+        - importo il componente SingleTag:
+        
+            import SingleTag from "./pages/SingleTag";
+    
+        - definisco la rotta PARAMETRICA o DINAMICA che condurrà al componente SingleTag che renderizzerà la pagina del singolo tag con tutti i post ad esso associati:
+
+            {
+                // uso :slug invece di :id come parametro dinamico (diverso per ogni singolo tag)
+                path: "/tags/:slug",
+                name: "single-tag",
+                component: SingleTag,
+            },
+
+
+    12. in resources > js > pages > SingleTag:
+
+        - imposto nei data() il singolo tag con valore null:
+
+            data() {
+                return {
+                    tag: null,
+                }
+            },
+
+        - all'hook created() faccio la chiamata axios all'endpoint e assegno il risultato della risposta alla chiamata come valore del tag null:
+
+            created() {
+
+                // imposto una chiamata Axios all'endpoint parametrico attraverso l'uso del template literal
+                axios.get(`/api/tags/${this.$route.params.slug}`)
+                
+                .then((response) => {
+
+                    // assegno al singolo tag il valore della risposta alla chiamata axios (response)
+                    this.tag = response.data;
+                })
+            }
+
+        - se ci sono (controllo v-if/v-else) stampo in pagina un elenco di tutti i tag, altrimenti un messaggio:
+
+            <template v-if="tag.posts.length > 0">
+                <div v-if="tag" class="tag-box">
+                    <h1>All posts with "{{tag.name}}" tag:</h1>
+                    <ul>
+                        <li v-for="post in tag.posts" :key="post.id">
                             <h4>{{post.title}}</h4>
                         </li>
                     </ul>

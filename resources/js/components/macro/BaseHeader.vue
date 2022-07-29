@@ -16,6 +16,10 @@
                             <router-link :to="{ name: 'categories' }">Categories</router-link>
                         </li>
                         <li>
+                            <!-- inserisco il router-link per la pagina con tutti i tag -->
+                            <router-link :to="{ name: 'tags' }">Tags</router-link>
+                        </li>
+                        <li>
                             <!-- inserisco il router-link per la pagina About -->
                             <router-link :to="{ name: 'about' }">About</router-link>
                         </li>
