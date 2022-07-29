@@ -2561,7 +2561,17 @@ var render = function render() {
   }, [_c("h1", [_vm._v('All posts with "' + _vm._s(_vm.category.name) + '" category:')]), _vm._v(" "), _c("ul", _vm._l(_vm.category.posts, function (post) {
     return _c("li", {
       key: post.id
-    }, [_c("h4", [_vm._v(_vm._s(post.title))])]);
+    }, [_c("router-link", {
+      staticClass: "router-link",
+      attrs: {
+        to: {
+          name: "single-post",
+          params: {
+            slug: post.slug
+          }
+        }
+      }
+    }, [_c("h4", [_vm._v(_vm._s(post.title))])])], 1);
   }), 0)]) : _vm._e()] : _c("div", [_c("h2", [_vm._v("There are no related posts")])]), _vm._v(" "), _c("router-link", {
     staticClass: "router-link",
     attrs: {

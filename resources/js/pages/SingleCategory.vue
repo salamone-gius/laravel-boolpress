@@ -6,7 +6,9 @@
                     <h1>All posts with "{{category.name}}" category:</h1>
                     <ul>
                         <li v-for="post in category.posts" :key="post.id">
-                            <h4>{{post.title}}</h4>
+                            <router-link class="router-link" :to="{name: 'single-post', params: {slug: post.slug} }">
+                                <h4>{{post.title}}</h4>
+                            </router-link>
                         </li>
                     </ul>
                 </div>
