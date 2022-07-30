@@ -19,3 +19,36 @@ In config > filesystems.php trovo tutte le informazioni relative allo storage.
     
     php artisan storage:link
 
+4. creo una colonna nella tabella posts dove salverò il path dell'img e il nome del file:
+
+    php artisan make:migration add_column_image_posts_table --table=posts
+
+5. in database > migrations > dataodierna_add_column_image_posts_table:
+
+    - imposto nell'up() il tipo di dato che dovrà popolare la nuova colonna:
+
+        public function up()
+        {
+            Schema::table('posts', function (Blueprint $table) {
+                
+                $table->string('image')->nullable();
+            });
+        }
+
+    - imposto nel down() l'istruzione su come distruggere la nuova colonna:
+
+        public function down()
+        {
+            Schema::table('posts', function (Blueprint $table) {
+                
+                $table->dropColumn('image');
+            });
+        }
+
+6. lancio il comando per creare effetivamente la nuova colonna a db:
+
+    php artisan migrate
+
+6.bis per annullare l'ultima migration lanciata:
+
+    php artisan migrate:rollback
