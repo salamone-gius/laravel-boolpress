@@ -20063,15 +20063,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************************************!*\
   !*** ./resources/js/pages/Categories.vue ***!
   \*******************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Categories_vue_vue_type_template_id_5604aa65_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Categories.vue?vue&type=template&id=5604aa65&scoped=true& */ "./resources/js/pages/Categories.vue?vue&type=template&id=5604aa65&scoped=true&");
 /* harmony import */ var _Categories_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Categories.vue?vue&type=script&lang=js& */ "./resources/js/pages/Categories.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Categories_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Categories_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _Categories_vue_vue_type_style_index_0_id_5604aa65_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Categories.vue?vue&type=style&index=0&id=5604aa65&lang=scss&scoped=true& */ "./resources/js/pages/Categories.vue?vue&type=style&index=0&id=5604aa65&lang=scss&scoped=true&");
+/* empty/unused harmony star reexport *//* harmony import */ var _Categories_vue_vue_type_style_index_0_id_5604aa65_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Categories.vue?vue&type=style&index=0&id=5604aa65&lang=scss&scoped=true& */ "./resources/js/pages/Categories.vue?vue&type=style&index=0&id=5604aa65&lang=scss&scoped=true&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -20103,7 +20102,7 @@ component.options.__file = "resources/js/pages/Categories.vue"
 /*!********************************************************************!*\
   !*** ./resources/js/pages/Categories.vue?vue&type=script&lang=js& ***!
   \********************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -20666,11 +20665,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_Home__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pages/Home */ "./resources/js/pages/Home.vue");
 /* harmony import */ var _pages_Categories__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pages/Categories */ "./resources/js/pages/Categories.vue");
 /* harmony import */ var _pages_SingleCategory__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pages/SingleCategory */ "./resources/js/pages/SingleCategory.vue");
-/* harmony import */ var _pages_Tags__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./pages/Tags */ "./resources/js/pages/Tags.vue");
-/* harmony import */ var _pages_SingleTag__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./pages/SingleTag */ "./resources/js/pages/SingleTag.vue");
-/* harmony import */ var _pages_About__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pages/About */ "./resources/js/pages/About.vue");
-/* harmony import */ var _pages_SinglePost__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pages/SinglePost */ "./resources/js/pages/SinglePost.vue");
-/* harmony import */ var _pages_Page404__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pages/Page404 */ "./resources/js/pages/Page404.vue");
+/* harmony import */ var _pages_Tags__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/Tags */ "./resources/js/pages/Tags.vue");
+/* harmony import */ var _pages_SingleTag__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pages/SingleTag */ "./resources/js/pages/SingleTag.vue");
+/* harmony import */ var _pages_About__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pages/About */ "./resources/js/pages/About.vue");
+/* harmony import */ var _pages_SinglePost__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pages/SinglePost */ "./resources/js/pages/SinglePost.vue");
+/* harmony import */ var _pages_Page404__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./pages/Page404 */ "./resources/js/pages/Page404.vue");
 // importo Vue.js dalla node modules
  // importo Vue router dalla node modules
 
@@ -20717,30 +20716,30 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   {
     path: "/tags",
     name: "tags",
-    component: _pages_Tags__WEBPACK_IMPORTED_MODULE_9__["default"]
+    component: _pages_Tags__WEBPACK_IMPORTED_MODULE_5__["default"]
   }, // aggiungo la rotta PARAMETRICA o DINAMICA per visualizzare la pagina di ogni singolo tag con i suoi post associati
   {
     // uso :slug invece di :id come parametro dinamico (diverso per ogni singolo tag)
     path: "/tags/:slug",
     name: "single-tag",
-    component: _pages_SingleTag__WEBPACK_IMPORTED_MODULE_10__["default"]
+    component: _pages_SingleTag__WEBPACK_IMPORTED_MODULE_6__["default"]
   }, // aggiungo la rotta per visualizzare la pagina About appena creata in resources > js > pages
   {
     path: "/about",
     name: "about",
-    component: _pages_About__WEBPACK_IMPORTED_MODULE_6__["default"]
+    component: _pages_About__WEBPACK_IMPORTED_MODULE_7__["default"]
   }, // aggiungo la rotta PARAMETRICA o DINAMICA per visualizzare la pagina di ogni singolo post
   {
     // uso :slug invece di :id come parametro dinamico (diverso per ogni singolo post)
     path: "/posts/:slug",
     name: "single-post",
-    component: _pages_SinglePost__WEBPACK_IMPORTED_MODULE_7__["default"]
+    component: _pages_SinglePost__WEBPACK_IMPORTED_MODULE_8__["default"]
   }, // aggiungo la rotta per visualizzare la pagina di errore 404 SEMPRE ALLA FINE (dopo aver cercato tra tutte le altre rotte)
   {
     // * = qualsiasi rotta/URI
     path: "/*",
     name: "page-404",
-    component: _pages_Page404__WEBPACK_IMPORTED_MODULE_8__["default"]
+    component: _pages_Page404__WEBPACK_IMPORTED_MODULE_9__["default"]
   }]
 }); // esporto il nuovo router
 

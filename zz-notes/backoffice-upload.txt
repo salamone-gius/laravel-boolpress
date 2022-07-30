@@ -1,0 +1,21 @@
+------------------------------------- LOCAL UPLOAD IMAGE (doc: file storage) ---------------------------------------
+
+Laravel mette a disposizione la classe Facades Storage che gestisce il processo di upload.
+Posso salvare i file fisicamente all'interno dell'applicativo (in locale) o affidarli a servizi terzi (in cloud).
+Per l'upload in cloud basterà configurare il file .env.
+I file uploadati in locale saranno pubblici perché dovranno essere fruibili anche dall'esterno del backoffice.
+In config > filesystems.php trovo tutte le informazioni relative allo storage.
+
+
+1. in .env, alla fine, aggiungo un'altra variabile d'ambiente che cambierà il luogo di storage di default (FILESYSTEM_DRIVER) da 'local' a 'public':
+
+    FILESYSTEM_DRIVER=public
+
+2. ogni volta che modifico qualcosa nel file .env devo lanciare il comando per aggiornare la cache:
+
+    php artisan config:clear
+
+3. SEMPRE all'inizio di ogni progetto o quando clono una repo (solo una volta), devo creare un symlink "storage", ovvero un collegamento tra la cartella storage > app> public (dove salvo i file) e la cartella public > storage:
+    
+    php artisan storage:link
+
