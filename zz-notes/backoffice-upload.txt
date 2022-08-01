@@ -52,3 +52,21 @@ In config > filesystems.php trovo tutte le informazioni relative allo storage.
 6.bis per annullare l'ultima migration lanciata:
 
     php artisan migrate:rollback
+
+7. in resources > views > admin > posts > create.blade.php:
+
+    - inserisco l'attributo che permette al form di inviare a db il file vero e proprio e non una semplice stringa:
+
+        <form action="{{route('admin.posts.index')}}" method="POST" enctype="multipart/form-data">
+            @csrf
+
+    - inserisco il form per l'inserimento del nuovo dato in ingresso (path dell'immagine):
+
+        <div class="form-group">
+            <label for="image">Image</label>
+            <input type="file" class="form-control-file @error('image') is-invalid @enderror" id="image" name="image" value="{{old('image')}}">
+            @error('image')
+                <div class="alert alert-danger">{{$message}}</div>
+            @enderror
+        </div>
+

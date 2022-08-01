@@ -8,7 +8,7 @@ class Post extends Model
 {
     // imposto le condizioni per il mass assignment (protezione dei campi)
     // passando 'tags' all'interno, escludo dal mass assignment quella colonna
-    protected $guarded = ['tags', 'user_id'];
+    protected $guarded = ['tags', 'user_id', 'image'];
 
     // creo un metodo pubblico che si chiama come la tabella principale (al singolare in caso di relazione uno a molti)
     public function category() {
