@@ -2688,7 +2688,21 @@ var render = function render() {
         }
       }
     }, [_vm._v(" " + _vm._s(tag.name) + " ")])], 1);
-  })], 2)])]) : _vm._e(), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.post.content))])]), _vm._v(" "), _c("router-link", {
+  })], 2)])]) : _vm._e(), _vm._v(" "), _c("div", {
+    staticClass: "d-flex justify-content-between align-items-center"
+  }, [_c("p", [_vm._v(_vm._s(_vm.post.content))]), _vm._v(" "), _c("div", {
+    staticStyle: {
+      width: "40%"
+    }
+  }, [_vm.post.image_path ? _c("img", {
+    staticStyle: {
+      width: "100%"
+    },
+    attrs: {
+      src: "post.image_path",
+      alt: "post.title"
+    }
+  }) : _vm._e()])])]), _vm._v(" "), _c("router-link", {
     staticClass: "router-link",
     attrs: {
       to: {

@@ -106,10 +106,26 @@ In config > filesystems.php trovo tutte le informazioni relative allo storage.
 
             extension=fileinfo
 
-    - se tutto è andato a buon fine, troviamo fisicamente il nuovo file uploadato in storage > public > uploads. Laravel trasforma in hash il nome del file, per evitare che ci possano essere conflitti causati da file con lo stesso nome.
+    - se tutto è andato a buon fine, troviamo fisicamente il nuovo file uploadato in storage > public > uploads. Laravel trasforma in hash il nome del file, per evitare che ci possano essere conflitti causati da file con lo stesso nome;
+
+    - aggiungo l'attributo image_path all'oggetto post senza modificare il dato originale a db attraverso un accesso (doc: Eloquent: Mutators):
+
+        // definisco il nuovo attributo che voglio aggiungere senza modificare fisicamente il dato a db
+        protected $appends = ['image_path'];
+
+        // aggiungo ad ogni post l'attributo image_path attraverso un accessor (metodo getImagePathAttribute()) che aggiunge l'attributo ma lascia immutato il dato a db
+        public function getImagePathAttribute() {
+            // aggiungo un controllo: restituisco $this->image SE (?) esiste, ALTRIMENTI (:) lo setto a null
+            return $this->image ? asset("storage/{$this->image}") : null;
+        }
 
 9. in resources > views > admin > posts > show.blade.php inserisco la sezione per la visualizzazione dell'immagine legata al post. Nell'src dell'img, inserisco, attraverso il metodo asset(), il percorso per recuperare i files dalla cartella public. Aggiungo con un controllino per verificarne l'esistenza:
 
     @if($post->image)
     <img src="{{asset("storage/{$post->image}")}}" alt="" style="width: 100%;">
     @endif
+
+10. in resources > js > pages > SinglePost.vue stampo (se c'è) l'informazione a livello di frontoffice:
+
+    <img v-if="post.image_path" src="post.image_path" alt="post.title">
+    

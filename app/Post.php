@@ -10,6 +10,15 @@ class Post extends Model
     // passando 'tags' all'interno, escludo dal mass assignment quella colonna
     protected $guarded = ['tags', 'user_id', 'image'];
 
+    // definisco il nuovo attributo che voglio aggiungere senza modificare fisicamente il dato a db
+    protected $appends = ['image_path'];
+
+    // aggiungo ad ogni post l'attributo image_path attraverso un accessor (metodo getImagePathAttribute()) che aggiunge l'attributo ma lascia immutato il dato a db
+    public function getImagePathAttribute() {
+        // aggiungo un controllo: restituisco $this->image SE (?) esiste, ALTRIMENTI (:) lo setto a null
+        return $this->image ? asset("storage/{$this->image}") : null;
+    }
+
     // creo un metodo pubblico che si chiama come la tabella principale (al singolare in caso di relazione uno a molti)
     public function category() {
 

@@ -18,7 +18,12 @@
                         </h4>
                     </div>
                 </div>
-                <p>{{post.content}}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <p>{{post.content}}</p>
+                    <div style="width: 40%;">
+                        <img v-if="post.image_path" src="post.image_path" alt="post.title" style="width: 100%;">
+                    </div>
+                </div>
             </div>
             <router-link :to="{name: 'home'}" class="router-link">Return to all posts</router-link>
         </div>
