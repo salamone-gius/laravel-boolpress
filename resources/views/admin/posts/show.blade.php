@@ -15,8 +15,13 @@
                 @endif
             </div>
         </div>
-        <div class="card-body">
+        <div class="card-body d-flex justify-content-between">
             <div>{{$post->content}}</div>
+            <div style="width: 40%;">
+                @if($post->image)
+                <img src="{{asset("storage/{$post->image}")}}" alt="" style="width: 100%;">
+                @endif
+            </div>
         </div>
         @if (count($post->tags) > 0)
         <div class="card-footer">
