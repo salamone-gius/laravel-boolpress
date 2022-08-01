@@ -70,3 +70,41 @@ In config > filesystems.php trovo tutte le informazioni relative allo storage.
             @enderror
         </div>
 
+8. in app > Http > Controllers > Admin > PostController.php, nel metodo store():
+
+    - visto che è codice duplicato, inserisco la parte di validazione in un metodo privato che andrò poi a richiamare nei metodi store() e update():
+
+        private $validation = [
+            // passo al metodo validate() un array associativo in cui la chiave sarà il dato che devo controllare e come valore le caratteristiche che quel dato deve avere per poter "passare" la validazione (vedi doc: validation)
+            'title' => 'required|string|max:255',
+            'content' => 'required|string|max:65535',
+            'published' => 'sometimes|accepted',
+            'category_id' => 'nullable|exists:categories,id',
+            'tag_id' => 'nullable|exists:tags,id',
+            'image' => 'nullable|image|max:500',
+        ];
+
+    - nel metodo store(), nel metodo validate() della $request, passo il nuovo metodo $validation con tutti i dati da validare:
+
+        $request->validate($this->validation);
+
+    - aggiungo un controllo sulla presenza del file da storare:
+
+        // SE il dato è settato (se c'è un'immagine)...
+        if (isset($data['image'])) {
+            // ...il valore di image della tabella post sarà il percorso del filesystem dove si trova l'immagine (il metodo put() fa il salvataggio fisico del file all'interno del file system e restituisce il path)
+            $newPost->image = Storage::put('uploads', $data['image']); 
+        }
+
+    - se da errore relativo al MIME, bisogna scommentare un riga nel file php.ini:
+
+        - lanciare dal terminale il comando per trovare il file php.ini:
+
+            php --ini
+
+        - nel file php.ini scommento riga 917:
+
+            extension=fileinfo
+
+    - se tutto è andato a buon fine, troviamo fisicamente il nuovo file uploadato in storage > public > uploads. Laravel trasforma in hash il nome del file, per evitare che ci possano essere conflitti causati da file con lo stesso nome.
+

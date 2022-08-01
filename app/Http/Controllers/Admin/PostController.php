@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+// importo la Facades che mi fornisce dei metodi di supporto relativi alla fase di storage
+use Illuminate\Support\Facades\Storage;
+
 // importo la Facades che mi fornisce dei metodi di supporto relativi all'utente autenticato
 use Illuminate\Support\Facades\Auth;
 
@@ -20,9 +23,18 @@ use App\Category;
 // collegate le due tabelle, importo anche il modello dei tag
 use App\Tag;
 
-
 class PostController extends Controller
 {
+    private $validation = [
+        // passo al metodo validate() un array associativo in cui la chiave sarà il dato che devo controllare e come valore le caratteristiche che quel dato deve avere per poter "passare" la validazione (vedi doc: validation)
+        'title' => 'required|string|max:255',
+        'content' => 'required|string|max:65535',
+        'published' => 'sometimes|accepted',
+        'category_id' => 'nullable|exists:categories,id',
+        'tag_id' => 'nullable|exists:tags,id',
+        'image' => 'nullable|image|max:500',
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -66,15 +78,8 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        // valido i dati che arrivano dal form del create
-        $request->validate([
-            // passo al metodo validate() un array associativo in cui la chiave sarà il dato che devo controllare e come valore le caratteristiche che quel dato deve avere per poter "passare" la validazione (vedi doc: validation)
-            'title' => 'required|string|max:255',
-            'content' => 'required|string|max:65535',
-            'published' => 'sometimes|accepted',
-            'category_id' => 'nullable|exists:categories,id',
-            'tag_id' => 'nullable|exists:tags,id',
-        ]);
+        // valido i dati che arrivano dal form del create attraverso il metodo privato $validation (riga 26)
+        $request->validate($this->validation);
 
         // prendo i dati dalla request
         $data = $request->all();
@@ -94,6 +99,12 @@ class PostController extends Controller
 
         // associo lo user al post attraverso il suo id
         $newPost->user_id = Auth::id();
+
+        // SE il dato è settato (se c'è un'immagine)...
+        if (isset($data['image'])) {
+            // ...il valore di image della tabella post sarà il percorso del filesystem dove si trova l'immagine (il metodo put() fa il salvataggio fisico del file all'interno del file system e restituisce il path)
+            $newPost->image = Storage::put('uploads', $data['image']); 
+        }
 
         // salvo i dati a db
         $newPost->save();
@@ -177,15 +188,8 @@ class PostController extends Controller
             abort(403);
         }
 
-        // valido i dati che arrivano dal form dell'edit
-        $request->validate([
-            // passo al metodo validate() un array associativo in cui la chiave sarà il dato che devo controllare e come valore le caratteristiche che quel dato deve avere per poter "passare" la validazione (vedi doc: validation)
-            'title' => 'required|string|max:255',
-            'content' => 'required|string|max:65535',
-            'published' => 'sometimes|accepted',
-            'category_id' => 'nullable|exists:categories,id',
-            'tag_id' => 'nullable|exists:tags,id',
-        ]);
+        // valido i dati che arrivano dal form dell'edit attraverso il metodo privato $validation (riga 26)
+        $request->validate($this->validation);
 
         // prendo i dati dalla request
         $data = $request->all();
