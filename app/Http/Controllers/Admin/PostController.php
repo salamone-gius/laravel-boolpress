@@ -208,6 +208,17 @@ class PostController extends Controller
         // il metodo isset() restituisce true o false. In questo caso "se esiste" restituisce true, altrimenti false
         $post->published = isset($data['published']);
 
+        // SE mi arriva l'image nuova dalla $request...
+        if (isset($data['image'])) {
+            // ...SE abbiamo già una vecchia immagine...
+            if ($post->image) {
+                // ...la cancello...
+                Storage::delete($post->image);
+            }
+            // ...(dopo di che) aggiungo la nuova immagine a db (il valore di image della tabella post sarà il percorso del filesystem dove si trova l'immagine (il metodo put() fa il salvataggio fisico del file all'interno del file system e restituisce il path)
+            $post->image = Storage::put('uploads', $data['image']); 
+        }
+
         // associo lo user al post attraverso il suo id
         $post->user_id = Auth::id();
 
@@ -249,7 +260,7 @@ class PostController extends Controller
         if ($post->image) {
             Storage::delete($post->image);
         }
-        
+
         // cancello il post selezionato
         $post->delete();
 

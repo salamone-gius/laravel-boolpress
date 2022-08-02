@@ -134,3 +134,42 @@ In config > filesystems.php trovo tutte le informazioni relative allo storage.
     if ($post->image) {
         Storage::delete($post->image);
     }
+
+12. in resources > views > admin > posts > edit.blade.php:
+
+    - inserisco l'attributo che permette al form di inviare a db il file vero e proprio e non una semplice stringa:
+
+        <form action="{{route('admin.posts.update', $post->id)}}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+
+    - inserisco una preview dell'immagine precedente e il form per l'inserimento della nuova immagine:
+
+        <div class="form-group">
+            <label for="image">Image</label>
+            <div class="card-body d-flex justify-content-between">
+                <div style="width: 30%;" class="mr-4">
+                    @if($post->image)
+                    <img src="{{asset("storage/{$post->image}")}}" alt="" style="width: 100%;">
+                    @endif
+                </div>
+                <input type="file" class="form-control-file @error('image') is-invalid @enderror" id="image" name="image" value="{{old('image')}}">
+                @error('image')
+                    <div class="alert alert-danger">{{$message}}</div>
+                @enderror
+            </div>
+        </div>
+
+13. in app > Http > Controllers > Admin > PostController.php, nel metodo update() aggiungo un controllo sull'eliminazione della vecchia immagine e setto l'aggiunta a db della nuova:
+
+    // SE mi arriva l'image nuova dalla $request...
+    if (isset($data['image'])) {
+        // ...SE abbiamo già una vecchia immagine...
+        if ($post->image) {
+            // ...la cancello...
+            Storage::delete($post->image);
+        }
+        // ...(dopo di che) aggiungo la nuova immagine a db (il valore di image della tabella post sarà il percorso del filesystem dove si trova l'immagine (il metodo put() fa il salvataggio fisico del file all'interno del file system e restituisce il path)
+        $post->image = Storage::put('uploads', $data['image']); 
+    }
+

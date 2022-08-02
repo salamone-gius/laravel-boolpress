@@ -7,7 +7,7 @@
             <h1>Edit post: {{$post->title}}</h1>
         </div>
         <div class="card-body">
-            <form action="{{route('admin.posts.update', $post->id)}}" method="POST">
+            <form action="{{route('admin.posts.update', $post->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="form-group">
@@ -23,6 +23,20 @@
                     @error('content')
                         <div class="alert alert-danger">{{$message}}</div>
                     @enderror
+                </div>
+                <div class="form-group">
+                    <label for="image">Image</label>
+                    <div class="card-body d-flex justify-content-between">
+                        <div style="width: 30%;" class="mr-4">
+                            @if($post->image)
+                            <img src="{{asset("storage/{$post->image}")}}" alt="" style="width: 100%;">
+                            @endif
+                        </div>
+                        <input type="file" class="form-control-file @error('image') is-invalid @enderror" id="image" name="image" value="{{old('image')}}">
+                        @error('image')
+                            <div class="alert alert-danger">{{$message}}</div>
+                        @enderror
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="category">Category</label>
