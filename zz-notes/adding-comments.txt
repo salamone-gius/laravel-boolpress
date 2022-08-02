@@ -25,3 +25,27 @@
 3. creo le colonne a db:
 
     php artisan migrate
+
+4. creo il Model della tabella comments:
+
+    php artisan make:model Comment
+
+5. vado a mappare la relazione tra la tabella posts e la tabella comments nei loro Model:
+
+    - in app > Post.php:
+
+        // creo un metodo pubblico che si chiama come la tabella dipendente (al plurale in caso di relazione uno a molti)
+        public function comments() {
+
+            // traduzione: restituisci $questoModel(un singolo post) che HA MOLTI ('il Model legato') (commenti)
+            return $this->hasMany('App\Comment');
+        }
+
+    - in app > Comment.php:
+
+        // creo un metodo pubblico che si chiama come la tabella principale (al singolare in caso di relazione uno a molti)
+        public function post() {
+
+            // traduzione: restituisci $questoModel(un singolo commento) che APPARTIENE A ('il Model legato') (un singolo post)
+            return $this->belongsTo('App\Post');
+        }

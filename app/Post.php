@@ -40,4 +40,11 @@ class Post extends Model
         return $this->belongsTo('App\User');
     }
 
+    // creo un metodo pubblico che si chiama come la tabella dipendente (al plurale in caso di relazione uno a molti)
+    public function comments() {
+
+        // traduzione: restituisci $questoModel(un singolo post) che HA MOLTI ('il Model legato') (commenti)
+        return $this->hasMany('App\Comment');
+    }
+
 }
