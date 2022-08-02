@@ -1,0 +1,27 @@
+------------------------------------- ADD COMMENTS ---------------------------------------
+
+1. creo la tabella comments:
+
+    php artisan make:migration create_comments_table
+
+2. in database > migrations > 2022_08_02_144602_create_comments_table creo le colonne della nuova tabella:
+
+    public function up()
+    {
+        Schema::create('comments', function (Blueprint $table) {
+            $table->id();
+            // aggiungo la colonna foreign key relativa alla tabella 'posts' in modo che se il post viene cancellato vengono cancellati tutti i commenti relativi
+            $table->foreignId('posts')->constrained()->onDelete('cascade');
+            // aggiungo la colonna relativa al nome dell'autore settandola nullable
+            $table->string('author', 80)->nullable();
+            // aggiungo la colonna relativa al testo del commento
+            $table->text('content');
+            // aggiungo la colonna con il valore booleano che gestirà l'approvazione o meno del commento settandolo 'false' di default
+            $table->boolean('is_approved')->default(false);
+            $table->timestamps();
+        });
+    }
+
+3. creo le colonne a db:
+
+    php artisan migrate
