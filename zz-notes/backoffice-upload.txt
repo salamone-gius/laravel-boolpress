@@ -127,5 +127,10 @@ In config > filesystems.php trovo tutte le informazioni relative allo storage.
 
 10. in resources > js > pages > SinglePost.vue stampo (se c'è) l'informazione a livello di frontoffice:
 
-    <img v-if="post.image_path" :src="post.image_path" alt="post.title">
+    <img v-if="post.image_path" :src="post.image_path" :alt="post.title">
     
+11. in app > Http > Controllers > Admin > PostController.php, aggiungo un controllo nel metodo delete() in modo che, quando viene cancellato il post, viene eliminata anche l'immagine associata:
+
+    if ($post->image) {
+        Storage::delete($post->image);
+    }

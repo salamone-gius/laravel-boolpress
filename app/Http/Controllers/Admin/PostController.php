@@ -245,6 +245,11 @@ class PostController extends Controller
             abort(403);
         }
 
+        // prima di cancellare il post, SE c'è un'immagine associata, la cancello
+        if ($post->image) {
+            Storage::delete($post->image);
+        }
+        
         // cancello il post selezionato
         $post->delete();
 

@@ -2701,7 +2701,7 @@ var render = function render() {
     },
     attrs: {
       src: _vm.post.image_path,
-      alt: "post.title"
+      alt: _vm.post.title
     }
   }) : _vm._e()])])]), _vm._v(" "), _c("router-link", {
     staticClass: "router-link",
