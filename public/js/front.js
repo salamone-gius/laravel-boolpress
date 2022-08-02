@@ -2144,7 +2144,16 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       // imposto il singolo post con valore null
-      post: null
+      post: null,
+      // per trasferire i dati inseriti nel form dei commenti attraverso axios, devo salvarli nei data() settandoli come stringhe vuote e predispongo i campi da prendere (in html) attraverso il v-model
+      formData: {
+        author: '',
+        content: ''
+      },
+      // salvo i messaggi di errore in un oggetto vuoto 'errors'
+      errors: {},
+      // setto l'informazione relativa al corretto inserimento del commento come 'false'
+      commentSent: false
     };
   },
   created: function created() {
@@ -2161,6 +2170,24 @@ __webpack_require__.r(__webpack_exports__);
         name: 'page-404'
       });
     });
+  },
+  methods: {
+    // definisco il metodo che al submit farà la richiesta axios per spedire (POST) i dati al backoffice
+    addComment: function addComment() {
+      var _this2 = this;
+
+      // richiesta axios di tipo POST (axios.post) all'endpoint (`/api/comments/${this.post.id}`) che spedirà i dati del form (this.formData) a db
+      axios.post("/api/comments/".concat(this.post.id), this.formData).then(function (response) {
+        // cambio il valore della variabile commentSent in true in modo da mostrare il messaggio
+        _this2.commentSent = true; // svuoto il form
+
+        _this2.formData.author = '';
+        _this2.formData.content = '';
+      }) // in caso di validazione fallita, salvo i messaggi di errore nella variabile 'errors'
+      ["catch"](function (error) {
+        _this2.errors = error.response.data.errors;
+      });
+    }
   }
 });
 
@@ -2703,7 +2730,93 @@ var render = function render() {
       src: _vm.post.image_path,
       alt: _vm.post.title
     }
-  }) : _vm._e()])])]), _vm._v(" "), _c("router-link", {
+  }) : _vm._e()])]), _vm._v(" "), _c("div", {
+    staticClass: "mt-5"
+  }, [_c("div", [_c("h4", [_vm._v("Leave a comment:")]), _vm._v(" "), _c("form", {
+    attrs: {
+      action: ""
+    },
+    on: {
+      submit: function submit($event) {
+        $event.preventDefault();
+        return _vm.addComment();
+      }
+    }
+  }, [_c("div", [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.formData.author,
+      expression: "formData.author"
+    }],
+    attrs: {
+      type: "text",
+      name: "author",
+      placeholder: "Insert your name"
+    },
+    domProps: {
+      value: _vm.formData.author
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+
+        _vm.$set(_vm.formData, "author", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", [_vm.errors.author ? _c("ul", _vm._l(_vm.errors, function (error, index) {
+    return _c("li", {
+      key: index
+    }, [_c("h3", {
+      staticStyle: {
+        color: "red"
+      }
+    }, [_vm._v(_vm._s(error))])]);
+  }), 0) : _vm._e()])]), _vm._v(" "), _c("div", [_c("textarea", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.formData.content,
+      expression: "formData.content"
+    }],
+    staticClass: "my-3",
+    attrs: {
+      name: "content",
+      id: "content",
+      cols: "30",
+      rows: "10",
+      placeholder: "Insert your comment"
+    },
+    domProps: {
+      value: _vm.formData.content
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+
+        _vm.$set(_vm.formData, "content", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("span", [_vm.errors.content ? _c("ul", _vm._l(_vm.errors, function (error, index) {
+    return _c("li", {
+      key: index
+    }, [_c("h3", {
+      staticStyle: {
+        color: "red"
+      }
+    }, [_vm._v(_vm._s(error))])]);
+  }), 0) : _vm._e()])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm.commentSent ? _c("div", {
+    staticClass: "mt-3",
+    staticStyle: {
+      color: "green",
+      border: "1px solid green",
+      width: "30%"
+    }
+  }, [_c("h4", {
+    staticStyle: {
+      "text-align": "center"
+    }
+  }, [_vm._v("Comment under approval")])]) : _vm._e()])])])]), _vm._v(" "), _c("router-link", {
     staticClass: "router-link",
     attrs: {
       to: {
@@ -2713,7 +2826,17 @@ var render = function render() {
   }, [_vm._v("Return to all posts")])], 1)]) : _vm._e();
 };
 
-var staticRenderFns = [];
+var staticRenderFns = [function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("div", [_c("button", {
+    staticClass: "p-2",
+    attrs: {
+      type: "submit"
+    }
+  }, [_vm._v("Add Comment")])]);
+}];
 render._withStripped = true;
 
 

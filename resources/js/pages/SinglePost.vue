@@ -24,6 +24,39 @@
                         <img v-if="post.image_path" :src="post.image_path" :alt="post.title" style="width: 100%; padding: 20px;">
                     </div>
                 </div>
+                <div class="mt-5">
+                    <div>
+                        <h4>Leave a comment:</h4>
+                        <form @submit.prevent="addComment()" action="">
+                            <div>
+                                <input type="text" name="author" placeholder="Insert your name" v-model="formData.author">
+                                <span>
+                                    <ul v-if="errors.author">
+                                        <li v-for="(error, index) in errors" :key="index">
+                                            <h3 style="color: red;">{{error}}</h3>
+                                        </li>
+                                    </ul>
+                                </span>
+                            </div>
+                            <div>
+                                <textarea name="content" id="content" cols="30" rows="10" placeholder="Insert your comment" class="my-3" v-model="formData.content"></textarea>
+                                <span>
+                                    <ul v-if="errors.content">
+                                        <li v-for="(error, index) in errors" :key="index">
+                                            <h3 style="color: red;">{{error}}</h3>
+                                        </li>
+                                    </ul>
+                                </span>
+                            </div>
+                            <div>
+                                <button type="submit" class="p-2">Add Comment</button>
+                            </div>
+                            <div v-if="commentSent" class="mt-3" style="color: green; border: 1px solid green; width: 30%;">
+                                <h4 style="text-align: center;">Comment under approval</h4>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
             <router-link :to="{name: 'home'}" class="router-link">Return to all posts</router-link>
         </div>
@@ -39,7 +72,19 @@ export default {
 
             // imposto il singolo post con valore null
             post: null,
-        }
+
+            // per trasferire i dati inseriti nel form dei commenti attraverso axios, devo salvarli nei data() settandoli come stringhe vuote e predispongo i campi da prendere (in html) attraverso il v-model
+            formData: {
+                author: '',
+                content: '',
+            },
+
+            // salvo i messaggi di errore in un oggetto vuoto 'errors'
+            errors: {},
+
+            // setto l'informazione relativa al corretto inserimento del commento come 'false'
+            commentSent: false,
+        };
     },
 
     created() {
@@ -58,6 +103,31 @@ export default {
             // ... faccio un redirect a Page404
             this.$router.push({name: 'page-404'});
         })
+    },
+
+    methods: {
+
+        // definisco il metodo che al submit farà la richiesta axios per spedire (POST) i dati al backoffice
+        addComment() {
+
+            // richiesta axios di tipo POST (axios.post) all'endpoint (`/api/comments/${this.post.id}`) che spedirà i dati del form (this.formData) a db
+            axios.post(`/api/comments/${this.post.id}`, this.formData)
+
+            .then((response) => {
+
+                // cambio il valore della variabile commentSent in true in modo da mostrare il messaggio
+                this.commentSent = true;
+                
+                // svuoto il form
+                this.formData.author = '';
+                this.formData.content = '';
+            })
+
+            // in caso di validazione fallita, salvo i messaggi di errore nella variabile 'errors'
+            .catch((error) => {
+                this.errors = error.response.data.errors;
+            });
+        },
     },
 }
 </script>

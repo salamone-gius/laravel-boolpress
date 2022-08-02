@@ -15,8 +15,8 @@ class CreateCommentsTable extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            // aggiungo la colonna foreign key relativa alla tabella 'posts' in modo che se il post viene cancellato vengono cancellati tutti i commenti relativi
-            $table->foreignId('posts')->constrained()->onDelete('cascade');
+            // aggiungo la colonna foreign key relativa alla tabella 'posts' (post_id) in modo che se il post viene cancellato vengono cancellati tutti i commenti relativi
+            $table->foreignId('post_id')->constrained()->onDelete('cascade');
             // aggiungo la colonna relativa al nome dell'autore settandola nullable
             $table->string('author', 80)->nullable();
             // aggiungo la colonna relativa al testo del commento

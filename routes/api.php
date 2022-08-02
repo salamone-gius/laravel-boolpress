@@ -31,3 +31,6 @@ Route::get('tags', 'Api\TagController@index');
 
 // imposto la rotta dinamica/parametrica che deve restituire tutti i post associati al singolo tag (con lo slug come parametro) da gestire con il metodo show() del TagController con namespace Api
 Route::get('tags/{slug}', 'Api\TagController@show');
+
+// imposto la rotta POST dinamica/parametrica (a cui punterà il form di aggiunta del commento del SinglePost) che deve restituire i dati del form e il post associato
+Route::post('comments/{post_id}', 'Api\CommentController@store');

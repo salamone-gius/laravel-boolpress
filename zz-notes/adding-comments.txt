@@ -10,8 +10,8 @@
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            // aggiungo la colonna foreign key relativa alla tabella 'posts' in modo che se il post viene cancellato vengono cancellati tutti i commenti relativi
-            $table->foreignId('posts')->constrained()->onDelete('cascade');
+            // aggiungo la colonna foreign key relativa alla tabella 'posts' (post_id) in modo che se il post viene cancellato vengono cancellati tutti i commenti relativi
+            $table->foreignId('post_id')->constrained()->onDelete('cascade');
             // aggiungo la colonna relativa al nome dell'autore settandola nullable
             $table->string('author', 80)->nullable();
             // aggiungo la colonna relativa al testo del commento
@@ -49,3 +49,138 @@
             // traduzione: restituisci $questoModel(un singolo commento) che APPARTIENE A ('il Model legato') (un singolo post)
             return $this->belongsTo('App\Post');
         }
+
+6. creo un controller Api per i commenti:
+
+    php artisan make:controller Api/CommentController
+
+7. in routes > api.php definisco la rotta POST dinamica/parametrica (a cui punterà il form di aggiunta del commento del SinglePost) che deve restituire i dati del form e il post associato:
+
+    Route::post('comments/{post_id}', 'Api\CommentController@store');
+
+8. in app > Http > Controllers > Api > CommentController.php inserisco il metodo store() e le relative istruzioni che mi servono per immagazzinare i dati del form a db:
+
+    // importo la Facades di supporto per le validazioni manuali
+    use Illuminate\Support\Facades\Validator;
+
+    // importo il Model dei commenti
+    use App\Comment;
+
+    class CommentController extends Controller
+    {
+        // passo come argomento del metodo store() l'id del post in oggetto
+        public function store(Request $request, $post_id) {
+
+            // prendo tutti i dati dalla request e li salvo in $data
+            $data = $request->all();
+
+            // salvo l'id del post corrente
+            $data['post_id'] = $post_id;
+
+            // valido in dati in ingresso con una validazione manuale (il metodo validate() restituisce sempre un redirect che in questo caso non mi serve)
+            $validator = Validator::make($data, [
+                'author' => 'nullable|string|max:80',
+                'content' => 'required|string',
+                'post_id' => 'exists:posts,id',
+            ]);
+            
+            if ($validator->fails()) {
+                return response()->json([
+                    "errors" => $validator->errors()
+                ], 400);
+            }
+
+            // creo il nuovo commento a db
+            $newComment = new Comment();
+
+            // imposto quali dati e come devono essere inseriti a db
+            $newComment->post_id = $data['post_id'];
+            $newComment->author = $data['author'];
+            $newComment->content = $data['content'];
+
+            // salvo il nuovo commento a db
+            $newComment->save();
+
+            // restituisco una risposta json positiva
+            return $newComment;
+        }
+    }
+
+9. in resources > js > pages > SinglePost.vue 
+
+    - nel template creo un form, la relativa logica e i doverosi controlli per l'inserimento dei commenti relativi al post:
+
+        <form @submit.prevent="addComment()" action="">
+            <div>
+                <input type="text" name="author" placeholder="Insert your name" v-model="formData.author">
+                <span>
+                    <ul v-if="errors.author">
+                        <li v-for="(error, index) in errors" :key="index">
+                            <h3 style="color: red;">{{error}}</h3>
+                        </li>
+                    </ul>
+                </span>
+            </div>
+            <div>
+                <textarea name="content" id="content" cols="30" rows="10" placeholder="Insert your comment" class="my-3" v-model="formData.content"></textarea>
+                <span>
+                    <ul v-if="errors.content">
+                        <li v-for="(error, index) in errors" :key="index">
+                            <h3 style="color: red;">{{error}}</h3>
+                        </li>
+                    </ul>
+                </span>
+            </div>
+            <div>
+                <button type="submit" class="p-2">Add Comment</button>
+            </div>
+            <div v-if="commentSent" class="mt-3" style="color: green; border: 1px solid green; width: 30%;">
+                <h4 style="text-align: center;">Comment under approval</h4>
+            </div>
+        </form>
+
+    - nello script, all'interno dei data() imposto i valori dei dati da prendere dal form attraverso il v-model:
+
+        data() {
+            return {
+
+                // per trasferire i dati inseriti nel form dei commenti attraverso axios, devo salvarli nei data() settandoli come stringhe vuote e predispongo i campi da prendere (in html) attraverso il v-model
+                formData: {
+                    author: '',
+                    content: '',
+                },
+
+                // salvo i messaggi di errore in un oggetto vuoto 'errors'
+                errors: {},
+
+                // setto l'informazione relativa al corretto inserimento del commento come 'false'
+                commentSent: false,
+            };
+        },
+
+    - nello script creo un metodo che gestisce il flusso dei dati da backend a frontend:
+
+        methods: {
+
+            // definisco il metodo che al submit farà la richiesta axios per spedire (POST) i dati al backoffice
+            addComment() {
+
+                // richiesta axios di tipo POST (axios.post) all'endpoint (`/api/comments/${this.post.id}`) che spedirà i dati del form (this.formData) a db
+                axios.post(`/api/comments/${this.post.id}`, this.formData)
+
+                .then((response) => {
+
+                    // cambio il valore della variabile commentSent in true in modo da mostrare il messaggio
+                    this.commentSent = true;
+                    
+                    // svuoto il form
+                    this.formData.author = '';
+                    this.formData.content = '';
+                })
+
+                // in caso di validazione fallita, salvo i messaggi di errore nella variabile 'errors'
+                .catch((error) => {
+                    this.errors = error.response.data.errors;
+                });
+            },
+        },
