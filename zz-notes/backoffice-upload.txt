@@ -127,5 +127,5 @@ In config > filesystems.php trovo tutte le informazioni relative allo storage.
 
 10. in resources > js > pages > SinglePost.vue stampo (se c'è) l'informazione a livello di frontoffice:
 
-    <img v-if="post.image_path" src="post.image_path" alt="post.title">
+    <img v-if="post.image_path" :src="post.image_path" alt="post.title">
     

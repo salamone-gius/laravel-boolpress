@@ -21,7 +21,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <p>{{post.content}}</p>
                     <div style="width: 40%;">
-                        <img v-if="post.image_path" src="post.image_path" alt="post.title" style="width: 100%;">
+                        <img v-if="post.image_path" :src="post.image_path" alt="post.title" style="width: 100%; padding: 20px;">
                     </div>
                 </div>
             </div>

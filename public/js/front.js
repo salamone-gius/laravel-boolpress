@@ -2696,10 +2696,11 @@ var render = function render() {
     }
   }, [_vm.post.image_path ? _c("img", {
     staticStyle: {
-      width: "100%"
+      width: "100%",
+      padding: "20px"
     },
     attrs: {
-      src: "post.image_path",
+      src: _vm.post.image_path,
       alt: "post.title"
     }
   }) : _vm._e()])])]), _vm._v(" "), _c("router-link", {
