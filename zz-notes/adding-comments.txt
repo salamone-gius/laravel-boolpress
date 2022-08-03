@@ -213,6 +213,8 @@
             $user_id =Auth::id();
 
             // salvo in $comments i commenti da approvare relativi all'autore che è loggato
+            // whereHas() permette di fare sub-query con la tabella relazionata posts (utilizzando il nome del metodo)
+            // la funzione use() permette di prendere variabili al di fuori dello scope
             $comments = Comment::whereHas('post', function($q) use($user_id) {
                 $q->where('user_id', $user_id);
             })->where('is_approved', false)->get();
@@ -331,4 +333,20 @@
     </div>
     @endsection
 
+16. in app > Http > Controllers > Api > PostController.php, nel metodo show(), attraverso una sub-query, aggiungo la tabella 'comments' tra le relazioni della tabella 'posts' nella query:
 
+    $post = Post::where('slug', $slug)->with(['category', 'tags', 'user', 'comments' => function($q) {
+        $q->where('is_approved', true);
+    }])->first();
+
+17. in resources > js > pages > SinglePost.vue stampo a frontoffice i commenti approvati con i doverosi controlli e cicli:
+
+    <ul v-if="post.comments.length > 0">
+        <h4 class="my-3">Comments:</h4>
+        <li v-for="comment in post.comments" :key="comment.id">
+            <div class="comment-box">
+                <h4 class="mb-2">Comment from {{comment.author ? comment.author : "anonymous"}}:</h4>
+                <div>{{comment.content}}</div>
+            </div>
+        </li>
+    </ul>

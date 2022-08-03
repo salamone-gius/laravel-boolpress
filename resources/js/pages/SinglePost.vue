@@ -24,10 +24,22 @@
                         <img v-if="post.image_path" :src="post.image_path" :alt="post.title" style="width: 100%; padding: 20px;">
                     </div>
                 </div>
-                <div class="mt-5">
+                <div>
+                    <ul v-if="post.comments.length > 0">
+                        <h4 class="my-3">Comments:</h4>
+                        <li v-for="comment in post.comments" :key="comment.id">
+                            <div class="comment-box">
+                                <h4 class="mb-2">Comment from {{comment.author ? comment.author : "Anonymous"}}:</h4>
+                                <div>{{comment.content}}</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+                <div class="leave-a-comment mt-5">
                     <div>
-                        <h4>Leave a comment:</h4>
-                        <form @submit.prevent="addComment()" action="">
+                        <form @submit.prevent="addComment()" action="" class="d-flex flex-column justify-content-center align-items-center">
+                            <h4 class="my-3">Leave a comment for this post</h4>
                             <div>
                                 <input type="text" name="author" placeholder="Insert your name" v-model="formData.author">
                                 <span>
@@ -57,13 +69,12 @@
                             <div>
                                 <button type="submit" class="p-2">Add Comment</button>
                             </div>
-                            <div v-if="commentSent" class="mt-3" style="color: green; border: 1px solid green; width: 30%;">
-                                <h4 style="text-align: center;">Comment under approval</h4>
+                            <div v-if="commentSent" class="mt-3" style="color: green; border: 1px solid green;">
+                                <h4 style="text-align: center; padding: 10px;">Comment under approval</h4>
                             </div>
                         </form>
                     </div>
                 </div>
-            </div>
             <router-link :to="{name: 'home'}" class="router-link">Return to all posts</router-link>
         </div>
     </div>
@@ -151,16 +162,20 @@ export default {
         margin-bottom: 1.8rem;
     }
 
-    .post-box{
+    .post-box, .comment-box {
+        padding: 1rem;
+        border-radius: 1.25rem;
+        box-shadow: 0 0 5px 2px gray;
+    }
+
+    .post-box {
         max-width: 70%;
         min-width: 60%;
         background-color: white;
-        padding: 1.5rem;
-        border-radius: 1.25rem;
-        box-shadow: 0 0 5px 2px gray;
         min-height: 21rem;
-
+        padding: 1.5rem;
     }
+
     
     .router-link {
         margin-top: 5rem;
@@ -169,6 +184,11 @@ export default {
         &:hover {
             color: blueviolet;
         }
+    }
+
+    ::placeholder {
+        text-align: center;
+        padding: 10px;
     }
 }
 </style>

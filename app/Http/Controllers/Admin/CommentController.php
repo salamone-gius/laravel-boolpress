@@ -20,6 +20,8 @@ class CommentController extends Controller
         $user_id =Auth::id();
 
         // salvo in $comments i commenti da approvare relativi all'autore che è loggato
+        // whereHas() permette di fare sub-query con la tabella relazionata posts (utilizzando il nome del metodo)
+        // la funzione use() permette di prendere variabili al di fuori dello scope
         $comments = Comment::whereHas('post', function($q) use($user_id) {
             $q->where('user_id', $user_id);
         })->where('is_approved', false)->get();

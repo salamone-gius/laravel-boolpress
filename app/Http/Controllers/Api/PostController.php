@@ -24,7 +24,9 @@ class PostController extends Controller
     public function show($slug) {
 
         // attraverso una query filtro i dati che voglio. In questo caso il PRIMO POST DOVE dove lo slug è questo $slug (il parametro passato) INSIEME (inner join) ai dati delle tabelle relazionate (i nomi dei metodi nei model)
-        $post = Post::where('slug', $slug)->with(['category', 'tags', 'user'])->first();
+        $post = Post::where('slug', $slug)->with(['category', 'tags', 'user', 'comments' => function($q) {
+            $q->where('is_approved', true);
+        }])->first();
 
         // aggiungo un controllo per la gestione dell'arrivo di json vuoti
         // SE $post è VUOTO...

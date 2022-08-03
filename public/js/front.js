@@ -2730,9 +2730,20 @@ var render = function render() {
       src: _vm.post.image_path,
       alt: _vm.post.title
     }
-  }) : _vm._e()])]), _vm._v(" "), _c("div", {
-    staticClass: "mt-5"
-  }, [_c("div", [_c("h4", [_vm._v("Leave a comment:")]), _vm._v(" "), _c("form", {
+  }) : _vm._e()])]), _vm._v(" "), _c("div", [_vm.post.comments.length > 0 ? _c("ul", [_c("h4", {
+    staticClass: "my-3"
+  }, [_vm._v("Comments:")]), _vm._v(" "), _vm._l(_vm.post.comments, function (comment) {
+    return _c("li", {
+      key: comment.id
+    }, [_c("div", {
+      staticClass: "comment-box"
+    }, [_c("h4", {
+      staticClass: "mb-2"
+    }, [_vm._v("Comment from " + _vm._s(comment.author ? comment.author : "Anonymous") + ":")]), _vm._v(" "), _c("div", [_vm._v(_vm._s(comment.content))])])]);
+  })], 2) : _vm._e()])]), _vm._v(" "), _c("div", {
+    staticClass: "leave-a-comment mt-5"
+  }, [_c("div", [_c("form", {
+    staticClass: "d-flex flex-column justify-content-center align-items-center",
     attrs: {
       action: ""
     },
@@ -2742,7 +2753,9 @@ var render = function render() {
         return _vm.addComment();
       }
     }
-  }, [_c("div", [_c("input", {
+  }, [_c("h4", {
+    staticClass: "my-3"
+  }, [_vm._v("Leave a comment for this post")]), _vm._v(" "), _c("div", [_c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -2817,14 +2830,14 @@ var render = function render() {
     staticClass: "mt-3",
     staticStyle: {
       color: "green",
-      border: "1px solid green",
-      width: "30%"
+      border: "1px solid green"
     }
   }, [_c("h4", {
     staticStyle: {
-      "text-align": "center"
+      "text-align": "center",
+      padding: "10px"
     }
-  }, [_vm._v("Comment under approval")])]) : _vm._e()])])])]), _vm._v(" "), _c("router-link", {
+  }, [_vm._v("Comment under approval")])]) : _vm._e()])])]), _vm._v(" "), _c("router-link", {
     staticClass: "router-link",
     attrs: {
       to: {
@@ -3150,7 +3163,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".single-post[data-v-67cb3b51] {\n  padding: var(--section-padding);\n}\n.single-post p[data-v-67cb3b51] {\n  margin: 2rem 0;\n}\n.single-post li[data-v-67cb3b51] {\n  list-style: none;\n  margin-bottom: 1.8rem;\n}\n.single-post .post-box[data-v-67cb3b51] {\n  max-width: 70%;\n  min-width: 60%;\n  background-color: white;\n  padding: 1.5rem;\n  border-radius: 1.25rem;\n  box-shadow: 0 0 5px 2px gray;\n  min-height: 21rem;\n}\n.single-post .router-link[data-v-67cb3b51] {\n  margin-top: 5rem;\n  text-decoration: none;\n}\n.single-post .router-link[data-v-67cb3b51]:hover {\n  color: blueviolet;\n}", ""]);
+exports.push([module.i, ".single-post[data-v-67cb3b51] {\n  padding: var(--section-padding);\n}\n.single-post p[data-v-67cb3b51] {\n  margin: 2rem 0;\n}\n.single-post li[data-v-67cb3b51] {\n  list-style: none;\n  margin-bottom: 1.8rem;\n}\n.single-post .post-box[data-v-67cb3b51], .single-post .comment-box[data-v-67cb3b51] {\n  padding: 1rem;\n  border-radius: 1.25rem;\n  box-shadow: 0 0 5px 2px gray;\n}\n.single-post .post-box[data-v-67cb3b51] {\n  max-width: 70%;\n  min-width: 60%;\n  background-color: white;\n  min-height: 21rem;\n  padding: 1.5rem;\n}\n.single-post .router-link[data-v-67cb3b51] {\n  margin-top: 5rem;\n  text-decoration: none;\n}\n.single-post .router-link[data-v-67cb3b51]:hover {\n  color: blueviolet;\n}\n.single-post[data-v-67cb3b51] ::-moz-placeholder {\n  text-align: center;\n  padding: 10px;\n}\n.single-post[data-v-67cb3b51] ::placeholder {\n  text-align: center;\n  padding: 10px;\n}", ""]);
 
 // exports
 
