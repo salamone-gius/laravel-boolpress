@@ -190,3 +190,145 @@
                 });
             },
         },
+
+10. creo un controller con namespace Admin per gestire i commenti a backoffice:
+
+    php artisan make:controller Admin/CommentController
+
+11. in app > Http > Controllers > Admin > CommentController.php:
+
+    - importo la Facades che mi restituisce l'utente loggato:
+
+        use Illuminate\Support\Facades\Auth;
+
+    - importo il Model dei commenti:
+
+        use App\Comment;
+
+    - creo un metodo index() che restituisce una view che mostra la lista di tutti i commenti da approvare:
+
+        public function index() {
+
+            // salvo in $user_id l'id dell'utente attualmente loggato
+            $user_id =Auth::id();
+
+            // salvo in $comments i commenti da approvare relativi all'autore che è loggato
+            $comments = Comment::whereHas('post', function($q) use($user_id) {
+                $q->where('user_id', $user_id);
+            })->where('is_approved', false)->get();
+
+            // restituisco una view che mostra i commenti da approvare e i commenti formattati
+            return view('admin.comments.index', compact('comments'));
+        }
+
+    - creo un metodo update(), passando come argomento il singolo commento, che modifica a db il campo 'is_approved' della tabella 'comments' da false in true:
+
+        public function update(Comment $comment) {
+
+            // cambia il valore del campo 'is_approved' della tabella 'comments' da false a true
+            $comment->is_approved = true;
+
+            // salvo la modifica a db
+            $comment->save();
+
+            // restituisco un reindirizzamento alla pagina con tutti i commenti da approvare
+            return redirect()->route('admin.comments.index');
+        }
+
+    - creo un metodo destroy(), passando come argomento il singolo commento, che cancella il commento:
+
+        public function destroy(Comment $comment) {
+
+            // cancello il commento
+            $comment->delete();
+
+            // restituisco un reindirizzamento alla pagina con tutti i commenti da approvare
+            return redirect()->route('admin.comments.index');
+        }
+
+12. in resources > views > admin creo una cartella 'comments' in cui creo la pagina index.blade.php;
+
+13. in routes > web.php, nel middleware auth, definisco le rotte che puntano ai metodi del CommentController che mi servono:
+
+    // aggiungo la rotta per il metodo index() del CommentController
+    Route::get('comments', 'CommentController@index')->name('comments.index');
+
+    // aggiungo la rotta parametrica/dinamica per il metodo update() del CommentController passando il singolo commento
+    Route::patch('comments/{comment}', 'CommentController@update')->name('comments.update');
+
+    // aggiungo la rotta parametrica/dinamica per il metodo update() del CommentController passando il singolo commento
+    Route::delete('comments/{comment}', 'CommentController@destroy')->name('comments.destroy');
+
+14. in resources > views > layouts > app.blade.php aggiungo un link alla navbar che punta alla rotta che mostra la pagina con i commenti da approvare:
+
+    <a class="navbar-brand" href="{{ route('admin.comments.index') }}">
+        Comments to approve
+    </a>
+
+15. in resources > views > admin > comments > index.blade.php creo la pagina con l'elenco dei commenti da approvare e le azioni per approvare o cancellare un commento:
+
+    @extends('layouts.app')
+
+    @section('content')
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h1>Comments to approve</h1>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center">#</th>
+                            <th scope="col" class="text-center">Post Title</th>
+                            <th scope="col" class="text-center">Author</th>
+                            <th scope="col" class="text-center">Content</th>
+                            <th scope="col" class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($comments as $comment)
+                            <tr>
+                                <td>{{$comment->id}}</td>
+
+                                {{-- accedo alle informazioni del post associato attraverso il metodo post() definito nel Model Comment che instaura la relazione tra la tabella posts e la tabella comments --}}
+                                <td>{{$comment->post->title}}</td>
+                                <td>{{$comment->author}}</td>
+                                <td>{{$comment->content}}</td>
+                                <td style="min-width: 350px;">
+
+                                    {{-- creo un form con metodo POST la cui action è la spedizione dell'informazione alla rotta update per la modifica del campo 'is_approved' in true (approvazione del commento) --}}
+                                    <form action="{{route('admin.comments.update', $comment->id)}}" method="POST" class="d-inline-block">
+
+                                        {{-- aggiungo il token di validazione --}}
+                                        @csrf
+
+                                        {{-- aggiungo il metodo PATCH perchè il campo da modificare è un solo (altrimenti PUT) --}}
+                                        @method('PATCH')
+
+                                        <button type="submit" href="" class="btn btn-success">Approve comment</button>
+
+                                    </form>
+
+                                    {{-- creo un form con metodo POST la cui action è la spedizione dell'informazione alla rotta destroy per la cancellazione del commento a db --}}
+                                    <form action="{{route('admin.comments.destroy', $comment->id)}}" method="POST" class="d-inline-block">
+
+                                        {{-- aggiungo il token di validazione --}}
+                                        @csrf
+
+                                        {{-- aggiungo il metodo DELETE --}}
+                                        @method('DELETE')
+
+                                        <button type="submit" href="" class="btn btn-danger">Delete comment</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    @endsection
+
+

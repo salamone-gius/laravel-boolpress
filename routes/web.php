@@ -49,7 +49,14 @@ Route::middleware('auth')
     // aggiungo la rotta per il TagController. Il metodo resource() nel middleware crea in automatico tutte le rotte del TagController utili per tutte le operazioni di CRUD (index, create, ecc...)
     Route::resource('tags', 'TagController');
 
+    // aggiungo la rotta per il metodo index() del CommentController
+    Route::get('comments', 'CommentController@index')->name('comments.index');
 
+    // aggiungo la rotta parametrica/dinamica per il metodo update() del CommentController passando il singolo commento
+    Route::patch('comments/{comment}', 'CommentController@update')->name('comments.update');
+
+    // aggiungo la rotta parametrica/dinamica per il metodo update() del CommentController passando il singolo commento
+    Route::delete('comments/{comment}', 'CommentController@destroy')->name('comments.destroy');
     });
 
 
