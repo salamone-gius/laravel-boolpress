@@ -2764,14 +2764,18 @@ var render = function render() {
         _vm.$set(_vm.formData, "author", $event.target.value);
       }
     }
-  }), _vm._v(" "), _c("span", [_vm.errors.author ? _c("ul", _vm._l(_vm.errors, function (error, index) {
+  }), _vm._v(" "), _c("span", [_vm.errors.author ? _c("ul", _vm._l(_vm.errors, function (errorMessages, index) {
     return _c("li", {
       key: index
-    }, [_c("h3", {
-      staticStyle: {
-        color: "red"
-      }
-    }, [_vm._v(_vm._s(error))])]);
+    }, _vm._l(errorMessages, function (error, index) {
+      return _c("div", {
+        key: index
+      }, [_c("h3", {
+        staticStyle: {
+          color: "red"
+        }
+      }, [_vm._v(_vm._s(error))])]);
+    }), 0);
   }), 0) : _vm._e()])]), _vm._v(" "), _c("div", [_c("textarea", {
     directives: [{
       name: "model",
@@ -2797,14 +2801,18 @@ var render = function render() {
         _vm.$set(_vm.formData, "content", $event.target.value);
       }
     }
-  }), _vm._v(" "), _c("span", [_vm.errors.content ? _c("ul", _vm._l(_vm.errors, function (error, index) {
+  }), _vm._v(" "), _c("span", [_vm.errors.content ? _c("ul", _vm._l(_vm.errors, function (errorMessages, index) {
     return _c("li", {
       key: index
-    }, [_c("h3", {
-      staticStyle: {
-        color: "red"
-      }
-    }, [_vm._v(_vm._s(error))])]);
+    }, _vm._l(errorMessages, function (error, index) {
+      return _c("div", {
+        key: index
+      }, [_c("h3", {
+        staticStyle: {
+          color: "red"
+        }
+      }, [_vm._v(_vm._s(error))])]);
+    }), 0);
   }), 0) : _vm._e()])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm.commentSent ? _c("div", {
     staticClass: "mt-3",
     staticStyle: {

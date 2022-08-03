@@ -32,8 +32,11 @@
                                 <input type="text" name="author" placeholder="Insert your name" v-model="formData.author">
                                 <span>
                                     <ul v-if="errors.author">
-                                        <li v-for="(error, index) in errors" :key="index">
-                                            <h3 style="color: red;">{{error}}</h3>
+                                        <!-- ciclo due volte poiché la struttura degli errors è: errors (oggetto) > errorMessages (array) > error (stringa)-->
+                                        <li v-for="(errorMessages, index) in errors" :key="index">
+                                            <div v-for="(error, index) in errorMessages" :key="index">
+                                                <h3 style="color: red;">{{error}}</h3>
+                                            </div>
                                         </li>
                                     </ul>
                                 </span>
@@ -42,8 +45,11 @@
                                 <textarea name="content" id="content" cols="30" rows="10" placeholder="Insert your comment" class="my-3" v-model="formData.content"></textarea>
                                 <span>
                                     <ul v-if="errors.content">
-                                        <li v-for="(error, index) in errors" :key="index">
-                                            <h3 style="color: red;">{{error}}</h3>
+                                        <!-- ciclo due volte poiché la struttura degli errors è: errors (oggetto) > errorMessages (array) > error (stringa)-->
+                                        <li v-for="(errorMessages, index) in errors" :key="index">
+                                            <div v-for="(error, index) in errorMessages" :key="index">
+                                                <h3 style="color: red;">{{error}}</h3>
+                                            </div>
                                         </li>
                                     </ul>
                                 </span>
