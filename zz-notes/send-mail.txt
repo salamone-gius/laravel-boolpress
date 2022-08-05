@@ -1,0 +1,36 @@
+---------------------------------------------------- SEND MAIL ------------------------------------------------------
+
+Aggiungo l'invio automatico di una mail all'autore del post nel caso in cui ci sia un nuovo commento da approvare.
+L'invio di mail di notifica viene gestito da un server a parte poiché si utilizzano protocolli diversi (protocollo SMTP).
+Il protocollo SMTP (Simple Mail Transfer Protocol) viene utilizzato per SPEDIRE email attraverso internet, mentre per la LETTURA delle mail si utilizza principalmente il protocollo IMAP (il protocollo POP non viene più tanto utilizzato).
+Pertanto si utilizzano porte diverse da 8000, di solito 2525.
+In fase di sviluppo, per testare il funzionamento del server mail, si usano dei servizi esterni (server smtp esterno) che crea una sandbox in cui vengono catchate le mail inviate e ricevute (Mailtrap.io).
+
+
+-   -   -   -   -   -   -   -   -   -   -   -   -    MAILTRAP    -   -   -   -   -   -   -   -   -   -   -   -   -   -
+
+1. effettuo l'accesso su mailtrap.io e creo una nuova casella finta;
+
+2. cliccando sulla nuova inbox si va alla parte di configurazione;
+
+3. in questa parte, sotto la voce 'Integrations', seleziono il framework che devo utilizzare (Laravel 7+);
+
+4. appare lo snippet di codice delle variabili d'ambiente da settare per utilizzare il mail server di mailtrap da copiare e incollare nella sezione già mezza predisposta del file .env:
+
+    MAIL_MAILER=smtp
+    MAIL_HOST=smtp.mailtrap.io
+    MAIL_PORT=2525
+    MAIL_USERNAME=42024991268c47
+    MAIL_PASSWORD=5784d84e992f9a
+    MAIL_ENCRYPTION=tls
+
+    //  setto la voce MAIL_FROM_ADDRESS con la mail che risulterà come mittente (si può anche impostare in modo dinamico)
+    MAIL_FROM_ADDRESS=noreply@boolpress.com
+
+5. ogni volta che viene modificato il file .env, conviene sempre staccare il server, pulire la cache lanciando il comando dedicato e riavviare il server:
+
+    php artisan config:clear
+
+-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
+
+
