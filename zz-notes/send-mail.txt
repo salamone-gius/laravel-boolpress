@@ -118,3 +118,62 @@ In fase di sviluppo, per testare il funzionamento del server mail, si usano dei 
 
 3. in resources > views > comment.blade.php adesso posso utilizzare l'oggetto $comment per stampare nel corpo della mail tutti i dati relativi e relazionati;
 
+-   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
+
+4. genero un template responsive preconfezionato per le mail gentilmente offerto da Laravel (doc: mail markdown-mailables):
+
+    php artisan  make:mail CommentMailMarkdown --markdown=mail.comment-markdown
+
+5. in resources > views > mail viene creata la pagina comment-markdown.blade.php che rappresenta la mail che sarà inviata;
+
+6. in app > Mail > CommentMailMarkdown.php definisco i dati che voglio stampare come proprietà public (doc: mail view-data):
+
+    - importo il Model dei commenti:
+
+        use App\Comment;
+
+    - definisco una proprietà pubblica $comment in cui andrò a salvare:
+
+        public $comment;
+
+    - passo l'oggetto $comment come argomento del metodo _construct() e lo inietto nella proprietà pubblica $comment:
+
+        public function _construct(Comment $comment) {
+
+            $this->comment = $comment;
+        }
+
+7. in app > Http > Controllers > Api > CommentController.php:
+
+    - importo la classe appena creata:
+    
+        use App\Mail\CommentMailMarkdown;
+        
+    - nel metodo store(), dopo aver validato, creato e salvato a db il nuovo commento, inserisco le istruzioni per inviare effettivamente la mail: 
+        
+        // aggiungo un controllo se ci dovesse essere un problema con l'invio dell'email
+        try {
+
+            // il to() rappresenta il destinatario della mail, send() crea un nuovo oggetto CommentMail partendo dalla sua classe e lo invia
+            // nel metodo to() inserisco in modo dinamico la mail dell'autore del post utilizzando le relazioni tra commento->post->utente(autore-del-post)->email
+            Mail::to($newComment->post->user->email)->send(new CommentMailMarkdown($newComment));
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+
+8. in resources > views > mail > comment-markdown.blade.php posso utilizzare $comment e tutti i dati di tutte le tabelle relazionate:
+
+    @component('mail::message')
+    # Nuovo commento da approvare (markdown)
+
+    Post commentato: {{$comment->post->title}}
+
+    @component('mail::button', ['url' => route('admin.comments.index')])
+    Vai ai commenti da approvare
+    @endcomponent
+
+    Grazie,<br>
+    {{ config('app.name') }}
+    @endcomponent
+
+9. è possibile modificare lo stile dei template preconfezionati di Laravel (doc: mail markdown-mailables) o utilizzare servizi esterni per creare template per la mail (beefree).

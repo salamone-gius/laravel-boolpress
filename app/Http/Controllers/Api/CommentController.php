@@ -8,11 +8,14 @@ use Illuminate\Http\Request;
 // importo la Facades di supporto per le validazioni manuali
 use Illuminate\Support\Facades\Validator;
 
-// importo la Facades di supporto per l'invio delle mail'
+// importo la Facades di supporto per l'invio delle mail
 use Illuminate\Support\Facades\Mail;
 
 // importo la classe relativa all'invio della mail dei commenti
 use App\Mail\CommentMail;
+
+// importo la classe relativa all'invio della mail dei commenti
+use App\Mail\CommentMailMarkdown;
 
 // importo il Model dei commenti
 use App\Comment;
@@ -58,7 +61,7 @@ class CommentController extends Controller
             // dopo aver validato, creato e salvato a db il nuovo commento, inserisco le istruzioni per inviare effettivamente la mail
             // il to() rappresenta il destinatario della mail, send() crea un nuovo oggetto CommentMail partendo dalla sua classe e lo invia
             // nel metodo to() inserisco in modo dinamico la mail dell'autore del post utilizzando le relazioni tra commento->post->utente(autore-del-post)->email
-            Mail::to($newComment->post->user->email)->send(new CommentMail($newComment));
+            Mail::to($newComment->post->user->email)->send(new CommentMailMarkdown($newComment));
         } catch (\Throwable $th) {
             //throw $th;
         }
