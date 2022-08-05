@@ -1,4 +1,4 @@
----------------------------------------------------- SEND MAIL ------------------------------------------------------
+---------------------------------------------------- MAIL SERVER ------------------------------------------------------
 
 Aggiungo l'invio automatico di una mail all'autore del post nel caso in cui ci sia un nuovo commento da approvare.
 L'invio di mail di notifica viene gestito da un server a parte poiché si utilizzano protocolli diversi (protocollo SMTP).
@@ -33,4 +33,27 @@ In fase di sviluppo, per testare il funzionamento del server mail, si usano dei 
 
 -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
 
+
+----------------------------------------------- LARAVEL - SEND MAIL -------------------------------------------------
+
+-   -   -   -   -   -   -   -   -   -   -   -    GENERO LA MAIL    -   -   -   -   -   -   -   -   -   -   -   -   -
+
+1. creo la classe (oggetto Mailable) che rappresenta il messaggio mail che voglio inviare:
+
+    php artisan make:mail CommentMail
+
+2. in app > Mail viene generato il file CommentMail.php che contiene il metodo build() che restituisce la vista del messaggio che voglio inviare;
+
+3. in resources > views creo una cartella 'mail' che conterrà i markup di tute le mail;
+
+4. in resources > views > mail creo un file 'comment.blade.php' nel quale andrò ad inserire il testo e i dati della mail;
+
+5. in app > Mail > CommentMail.php nel metodo build() inserisco il percorso per accedere al file comment.blade appena creato:
+
+    public function build()
+    {
+        return $this->view('mail.comment');
+    }
+
+6. in resources > views > comment.blade.php scrivo il contenuto della vista della mail e i dati che la stessa conterrà (statici o dinamici);
 
