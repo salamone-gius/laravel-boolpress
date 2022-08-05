@@ -91,3 +91,30 @@ In fase di sviluppo, per testare il funzionamento del server mail, si usano dei 
     } catch (\Throwable $th) {
         //throw $th;
     }
+
+
+-   -   -   -   -   -   -   -   -   -   -   -    COMPONGO LA MAIL    -   -   -   -   -   -   -   -   -   -   -   -   -
+
+1. in app > Mail > CommentMail.php definisco i dati che voglio stampare come proprietà public (doc: mail view-data):
+
+    - importo il Model dei commenti:
+
+        use App\Comment;
+
+    - definisco una proprietà pubblica $comment in cui andrò a salvare:
+
+        public $comment;
+
+    - passo l'oggetto $comment come argomento del metodo _construct() e lo inietto nella proprietà pubblica $comment:
+
+        public function _construct(Comment $comment) {
+
+            $this->comment = $comment;
+        }
+
+2. in app > Http > Controllers > Api > CommentController.php nel metodo store() all'istanza del nuovo oggetto aggiungo il nuovo commento come argomento (new CommentMail ora si aspetta un argomento) della classe:
+
+    Mail::to($newComment->post->user->email)->send(new CommentMail($newComment));
+
+3. in resources > views > comment.blade.php adesso posso utilizzare l'oggetto $comment per stampare nel corpo della mail tutti i dati relativi e relazionati;
+

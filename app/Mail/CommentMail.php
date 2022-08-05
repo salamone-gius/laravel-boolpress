@@ -7,18 +7,27 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
+// importo il Model dei commenti:
+use App\Comment;
+
 class CommentMail extends Mailable
 {
     use Queueable, SerializesModels;
+
+    // definisco una proprietà pubblica $comment in cui andrò a salvare:
+    public $comment;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+
+    // passo l'oggetto $comment come argomento del metodo _construct()
+    public function __construct(Comment $comment)
     {
-        //
+        // inietto l'oggetto $comment nella proprietà pubblica $comment
+        $this->comment = $comment;
     }
 
     /**
