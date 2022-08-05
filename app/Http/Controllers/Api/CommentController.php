@@ -52,9 +52,11 @@ class CommentController extends Controller
         // salvo il nuovo commento a db
         $newComment->save();
 
+        dd($newComment->post->user->email);
         // dopo aver validato, creato e salvato a db il nuovo commento, inserisco le istruzioni per inviare effettivamente la mail
-        // il to() rappresenta il destinatario della mail, send() crea un nuovo oggetto CommentMail partendo dalla sua classe e o invia
-        Mail::to('prova@laravel.it')->send(new CommentMail());
+        // il to() rappresenta il destinatario della mail, send() crea un nuovo oggetto CommentMail partendo dalla sua classe e lo invia
+        // nel metodo to() inserisco in modo dinamico la mail dell'autore del post utilizzando le relazioni tra commento->post->utente(autore-del-post)->email
+        Mail::to($newComment->post->user->email)->send(new CommentMail());
 
         // restituisco una risposta json positiva
         return $newComment;

@@ -77,4 +77,9 @@ In fase di sviluppo, per testare il funzionamento del server mail, si usano dei 
         // il to() rappresenta il destinatario della mail, send() crea un nuovo oggetto CommentMail partendo dalla sua classe e o invia
         Mail::to('prova@laravel.it')->send(new CommentMail());
 
-3. faccio un test per vedere se funziona: inserisco un commento ad un post dell'utente Giuseppe (con mail 'prova@laravel.it') e vado a controllare se l'ho ricevuta su Mailtrap.io;
+3. faccio un test per vedere se funziona: inserisco un commento ad un post dell'utente Giuseppe (con mail 'prova@laravel.it') e vado a controllare se ho ricevuto la mail di notifica su Mailtrap.io;
+
+4. in app > Http > Controllers > Api > CommentController.php, nel metodo store(), l'oggetto del Model Comment $newComment porta con sè le informazioni della tabella posts a cui è relazionata (quindi il singolo post a cui è legato il commento), singolo post che a sua volta porta con sè le informazioni della tabella users a cui è relazionata (quindi lo user a cui è legato il post):
+
+    // nel metodo to() inserisco in modo dinamico la mail dell'autore del post utilizzando le relazioni tra commento->post->utente(autore-del-post)->email
+    Mail::to($newComment->post->user->email)->send(new CommentMail());
