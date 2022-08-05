@@ -57,3 +57,24 @@ In fase di sviluppo, per testare il funzionamento del server mail, si usano dei 
 
 6. in resources > views > comment.blade.php scrivo il contenuto della vista della mail e i dati che la stessa conterrà (statici o dinamici);
 
+
+-   -   -   -   -   -   -   -   -   -   -   -    INVIO LA MAIL    -   -   -   -   -   -   -   -   -   -   -   -   -
+
+1. l'invio effettivo della mail verrà fatto dal Controller relativo all'entità in cui sono i dati da spedire;
+
+2. in app > Http > Controllers > Api > CommentController.php imposto l'invio effettivo della mail:
+
+    - importo la classe appena creata CommentMail:
+
+        use App\Mail\CommentMail;
+
+    - importo la Facades di supporto per l'invio delle mail:
+
+        use Illuminate\Support\Facades\Mail;
+
+    - all'interno del metodo store(), dopo aver validato, creato e salvato a db il nuovo commento, inserisco le istruzioni per inviare effettivamente la mail:
+
+        // il to() rappresenta il destinatario della mail, send() crea un nuovo oggetto CommentMail partendo dalla sua classe e o invia
+        Mail::to('prova@laravel.it')->send(new CommentMail());
+
+3. faccio un test per vedere se funziona: inserisco un commento ad un post dell'utente Giuseppe (con mail 'prova@laravel.it') e vado a controllare se l'ho ricevuta su Mailtrap.io;

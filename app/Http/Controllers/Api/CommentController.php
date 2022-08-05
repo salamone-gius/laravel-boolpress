@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 // importo la Facades di supporto per le validazioni manuali
 use Illuminate\Support\Facades\Validator;
 
+// importo la Facades di supporto per l'invio delle mail'
+use Illuminate\Support\Facades\Mail;
+
+// importo la classe relativa all'invio della mail dei commenti
+use App\Mail\CommentMail;
+
 // importo il Model dei commenti
 use App\Comment;
 
@@ -45,6 +51,10 @@ class CommentController extends Controller
 
         // salvo il nuovo commento a db
         $newComment->save();
+
+        // dopo aver validato, creato e salvato a db il nuovo commento, inserisco le istruzioni per inviare effettivamente la mail
+        // il to() rappresenta il destinatario della mail, send() crea un nuovo oggetto CommentMail partendo dalla sua classe e o invia
+        Mail::to('prova@laravel.it')->send(new CommentMail());
 
         // restituisco una risposta json positiva
         return $newComment;
