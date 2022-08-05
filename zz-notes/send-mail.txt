@@ -83,3 +83,11 @@ In fase di sviluppo, per testare il funzionamento del server mail, si usano dei 
 
     // nel metodo to() inserisco in modo dinamico la mail dell'autore del post utilizzando le relazioni tra commento->post->utente(autore-del-post)->email
     Mail::to($newComment->post->user->email)->send(new CommentMail());
+
+5. in app > Http > Controllers > Api > CommentController.php nel metodo store() aggiungo un controllo se ci dovesse essere un problema con l'invio dell'email:
+
+    try {
+        Mail::to($newComment->post->user->email)->send(new CommentMail());
+    } catch (\Throwable $th) {
+        //throw $th;
+    }
